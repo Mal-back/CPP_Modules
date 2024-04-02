@@ -23,13 +23,21 @@ class Contact {
 		Contact( void );
 		~Contact( void );
 
-	private:
-
+		int		is_set;
 		std::string	first_name;
 		std::string	last_name;
 		std::string	nick_name;
+
+		int		fetch_contact(void);
+		void	copy_contact(Contact contact_to_copy);
+		void	display_contact(void) const;
+
+	private:
+
 		std::string	phone_number;
 		std::string	darkest_secret;
+
+		std::string	fetch_input(std::string to_display, int *is_set);
 };
 
 #endif

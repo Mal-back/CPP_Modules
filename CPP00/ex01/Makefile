@@ -24,7 +24,7 @@ OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -std=c++98
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 

@@ -19,13 +19,20 @@ class PhoneBook {
 
 	public :
 
-		PhoneBook( void );
+		PhoneBook( int next_contact );
 		~PhoneBook( void );
+
+		void	add_contact( void );
+		void	display_contact_list( void ) const;
 
 	private :
 
+		Contact	temporary_contact;
 		Contact contact_entries[8];
 		int			next_contact_to_write;
+
+		void		padded_display(std::string info) const;
+		void		get_entry_to_display( void ) const;
 };
 
 #endif
