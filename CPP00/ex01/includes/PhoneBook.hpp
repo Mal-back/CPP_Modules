@@ -14,6 +14,7 @@
 
 # define PHONEBOOK_HPP
 # include "Contact.hpp"
+# include <sstream>
 
 class PhoneBook {
 
@@ -27,12 +28,12 @@ class PhoneBook {
 
 	private :
 
-		Contact	temporary_contact;
-		Contact contact_entries[8];
-		int			next_contact_to_write;
+		Contact	_temporary_contact;
+		Contact _contact_entries[8];
+		int			_next_contact_to_write;
 
-		void		padded_display(std::string info) const;
-		void		get_entry_to_display( void ) const;
+		void		_padded_display(std::string info) const;
+		void		_get_entry_to_display( void ) const;
 };
 
 #endif

@@ -13,11 +13,11 @@ RESET	=	\033[0m
 ###### Sources and includes path
 INCLUDES = includes/
 
-DEPS = $(addprefix $(INCLUDES), PhoneBook.hpp Contact.hpp main.hpp)
+DEPS = $(addprefix $(INCLUDES),)
 
 SRC = srcs/
 
-SRC_FILES = Contact.cpp PhoneBook.cpp main.cpp
+SRC_FILES = 
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
@@ -28,7 +28,7 @@ CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 
-NAME = PhoneBook
+NAME = 
 
 ###########################################################################
 ###### Rules

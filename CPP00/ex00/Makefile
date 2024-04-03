@@ -13,36 +13,34 @@ RESET	=	\033[0m
 ###### Sources and includes path
 INCLUDES = includes/
 
-DEPS = $(addprefix $(INCLUDES), PhoneBook.hpp Contact.hpp main.hpp)
+DEPS =
 
 SRC = srcs/
 
-SRC_FILES = Contact.cpp PhoneBook.cpp main.cpp
+SRC_FILES = megaphone.cpp
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
 CXX = c++
 
-NAME = PhoneBook
+NAME = megaphone
 
 ###########################################################################
 ###### Rules
 
 all : $(NAME)
 
-$(NAME) : make_dir $(OBJ_FILES) $(DEPS) 
+$(NAME) : $(OBJ_FILES) $(DEPS) 
 	$(CXX) $(CPPFLAGS) $(OBJ_FILES) -o $(NAME)
 
-$(BUILD)%.o: $(SRC)%.cpp $(DEPS)
-	$(CXX) $(CPPFLAGS) -I$(INCLUDES) -c $< -o $@
-
-make_dir :
-	@mkdir -p $(BUILD)
+$(BUILD)%.o: $(SRC)%.cpp
+	mkdir -p ${BUILD}
+	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 clean :
 	rm -rf $(BUILD)
@@ -50,9 +48,6 @@ clean :
 fclean : clean
 	rm -rf $(NAME)
 
-to_push : fclean
-	rm -rf compile_flags.txt
-
 re : fclean all
 
-.PHONY : all clean fclean re make_dir to_push
+.PHONY : all clean fclean re

@@ -34,10 +34,10 @@ class Contact {
 
 	private:
 
-		std::string	phone_number;
-		std::string	darkest_secret;
+		std::string	_phone_number;
+		std::string	_darkest_secret;
 
-		std::string	fetch_input(std::string to_display, int *is_set);
+		std::string	_fetch_input(std::string to_display, int *is_set);
 };
 
 #endif
