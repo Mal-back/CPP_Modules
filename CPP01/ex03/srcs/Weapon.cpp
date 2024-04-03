@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 19:39:46 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 19:40:01 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Weapon.hpp"
+#include <string>
 
-Zombie	*zombieHorde(int n, std::string name)
-{
-	Zombie	*horde;
+Weapon::Weapon(std::string type): type(type) {
+	return ;
+}
 
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
-	}
-	horde = new(nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
-	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
+Weapon::~Weapon( void ) {
+	return ;
+}
+
+const std::string	Weapon::getType( void ) const {
+	return(this->type);
+}
+
+void	Weapon::setType(std::string new_type) {
+	this->type = new_type;
+	return ;
 }

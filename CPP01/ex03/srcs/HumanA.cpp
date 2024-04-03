@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 19:51:43 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 19:51:44 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "HumanA.hpp"
+#include <iostream>
 
-Zombie	*zombieHorde(int n, std::string name)
-{
-	Zombie	*horde;
+HumanA::HumanA(std::string name, Weapon& weapon) : name(name), Current_Weapon(weapon){
+	return ;
+}
 
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
-	}
-	horde = new(nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
-	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
+HumanA::~HumanA( void ) {
+	return ;
+}
+
+void	HumanA::attack( void ) {
+	std::cout << this->name << " attacks with their " << Current_Weapon.getType() << std::endl;
 }

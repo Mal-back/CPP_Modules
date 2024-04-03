@@ -14,6 +14,6 @@
 
 Zombie	*newZombie(std::string name)
 {
-	Zombie	*newDude = new Zombie(name);
+	Zombie	*newDude = new(std::nothrow)Zombie(name);
 	return (newDude);
 }

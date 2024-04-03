@@ -18,11 +18,18 @@ int	main(void) {
 	Zombie	*horde3 = NULL;
 	std::cout << "Creating a horde of 42 zombies" << std::endl;
 	horde1 = zombieHorde(42, "Students");
+	if (horde1 == NULL) {
+		return (1);
+	}
 	for (int i = 0; i < 42; ++i) {
 		horde1[i].announce();
 	}
 	std::cout << "Creating a horde of 21 zombies" << std::endl;
 	horde2 = zombieHorde(21, "Ugly_guys");
+	if (horde2 == NULL) {
+		delete [] horde1;
+		return (1);
+	}
 	for (int i = 0; i < 21; ++i) {
 		horde2[i].announce();
 	}

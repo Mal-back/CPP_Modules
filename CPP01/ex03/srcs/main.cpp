@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 20:03:25 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 20:03:26 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
-Zombie	*zombieHorde(int n, std::string name)
+int main()
 {
-	Zombie	*horde;
-
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
-	}
-	horde = new(nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
-	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
+Weapon club = Weapon("crude spiked club");
+Weapon club2 = Weapon("crude spiked club");
+HumanA bob("Bob", club);
+HumanB jim("Jim");
+bob.attack();
+club.setType("some other type of club");
+bob.attack();
+jim.setWeapon(club2);
+jim.attack();
+club2.setType("some other type of club");
+jim.attack();
+return 0;
 }

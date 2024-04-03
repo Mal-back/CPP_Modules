@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 19:44:40 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 19:44:52 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef HUMANA_HPP
 
-Zombie	*zombieHorde(int n, std::string name)
-{
-	Zombie	*horde;
+# include <string>
+# include "Weapon.hpp"
 
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
-	}
-	horde = new(nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
-	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
-}
+# define HUMANA_HPP
+
+class HumanA {
+
+	public :
+
+		HumanA(std::string name, Weapon& weapon);
+		~HumanA( void );
+		
+		void	attack( void );
+
+
+
+	private :
+
+		std::string	name;
+		Weapon&			Current_Weapon;
+
+};
+
+#endif

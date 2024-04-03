@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 19:35:18 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 19:35:19 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef WEAPON_HPP
 
-Zombie	*zombieHorde(int n, std::string name)
-{
-	Zombie	*horde;
+# include <string>
 
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
-	}
-	horde = new(nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
-	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
-}
+# define WEAPON_HPP
+
+class Weapon {
+
+	public :
+
+		Weapon(std::string type);
+		~Weapon( void );
+
+
+		const	std::string getType(void) const;
+		void							setType(std::string new_weapon);
+
+	private :
+		std::string type;
+
+};
+
+#endif
