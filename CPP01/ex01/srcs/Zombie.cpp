@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newZombie.cpp                                      :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 16:58:58 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 16:58:59 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/03 16:47:11 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/03 16:47:12 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie	*newZombie(std::string name)
-{
-	Zombie	*newDude = new Zombie(name);
-	return (newDude);
+Zombie::Zombie(void) {
+	return ;
+}
+
+Zombie::~Zombie(void) {
+	std::cout << this->name << " has been destroyed" << std::endl;
+	return;
+}
+
+void	Zombie::announce(void) const{
+	std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+	return ;
+}
+
+void	Zombie::set_name(std::string name) {
+	this->name = name;
 }
