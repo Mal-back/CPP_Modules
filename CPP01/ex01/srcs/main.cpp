@@ -12,30 +12,40 @@
 
 #include "Zombie.hpp"
 
+void	delete_horde(Zombie **horde) {
+	for (int i = 0; i < 3; i++) {
+		if (horde[i] != NULL) {
+			delete [] horde[i];
+		}
+	}
+}
+
+void print_horde(Zombie *horde, int horde_size) {
+	for (int i = 0; i < horde_size; ++i) {
+		horde[i].announce();
+	}
+}
+
 int	main(void) {
-	Zombie	*horde1 = NULL;
-	Zombie	*horde2 = NULL;
-	Zombie	*horde3 = NULL;
+	Zombie	*horde[3] = { NULL };
+
 	std::cout << "Creating a horde of 42 zombies" << std::endl;
-	horde1 = zombieHorde(42, "Students");
-	if (horde1 == NULL) {
-		return (1);
-	}
-	for (int i = 0; i < 42; ++i) {
-		horde1[i].announce();
-	}
+	horde[0] = zombieHorde(42, "Students");
+	if (horde[0] == NULL) { return (1); }
+	print_horde(horde[0], 42);
+
+
 	std::cout << "Creating a horde of 21 zombies" << std::endl;
-	horde2 = zombieHorde(21, "Ugly_guys");
-	if (horde2 == NULL) {
-		delete [] horde1;
+	horde[1] = zombieHorde(21, "Ugly_guys");
+	if (horde[1] == NULL) {
+		delete_horde(horde);
 		return (1);
 	}
-	for (int i = 0; i < 21; ++i) {
-		horde2[i].announce();
-	}
+	print_horde(horde[1], 21);
+
 	std::cout << "Creating a horde of -4 zombies" << std::endl;
-	horde3 = zombieHorde(-4, "Students");
-	delete [] horde1;
-	delete [] horde2;
+	horde[2] = zombieHorde(-4, "Students");
+	delete_horde(horde);
+
 	return 0;
 }

@@ -28,7 +28,7 @@ class Weapon {
 		void							setType(std::string new_weapon);
 
 	private :
-		std::string type;
+		std::string _type;
 
 };
 

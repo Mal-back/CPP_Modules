@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:00:21 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:21 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/04 15:02:19 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/04 15:02:19 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Substitute.hpp"
 
-Zombie	*zombieHorde(int n, std::string name)
-{
-	Zombie	*horde;
-
-	if (n < 1)
-	{
-		std::cout << "You can't create a negative horde, sorry" << std::endl;
-		return (NULL);
+int	main(int ac, char **av) {
+	if (ac != 4) {
+		std::cout << "Substitute: error: Invalid number\
+of arguments(expected 3)" << std::endl;
+		return (0);
 	}
-	horde = new(std::nothrow) Zombie[n];
-	if (horde == NULL) {
-		return (NULL);
+	Substitute substitute(av[1], av[2], av[3]);
+	if (substitute.init_streams() != 0) {
+		return (1);
 	}
-	for (int i = 0; i < n; ++i) {
-		horde[i].set_name(name);
-	}	
-	return (horde);
+	substitute.substitute_buffer();
+	return (0);
 }

@@ -12,19 +12,38 @@
 
 #include "HumanA.hpp"
 #include "HumanB.hpp"
+#include "Weapon.hpp"
 
-int main()
+int main( void )
+{
 {
 Weapon club = Weapon("crude spiked club");
-Weapon club2 = Weapon("crude spiked club");
 HumanA bob("Bob", club);
-HumanB jim("Jim");
 bob.attack();
 club.setType("some other type of club");
 bob.attack();
-jim.setWeapon(club2);
+}
+{
+Weapon club = Weapon("crude spiked club");
+HumanB jim("Jim");
+jim.setWeapon(club);
 jim.attack();
-club2.setType("some other type of club");
+club.setType("some other type of club");
 jim.attack();
+}
+{
+	Weapon	*gun = new(std::nothrow)Weapon("Kalashnikov");
+	HumanB	savastano("Savastano");
+
+	if (gun == NULL) {
+		return (1);
+	}
+	savastano.attack();
+	savastano.setWeapon(*gun);
+	savastano.attack();
+	gun->setType("11.43");	
+	savastano.attack();
+	delete gun;
+}
 return 0;
 }

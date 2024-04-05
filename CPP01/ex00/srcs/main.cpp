@@ -20,7 +20,7 @@ int	main(void) {
 	std::cout << "newZombie is called to create Einstein and return his address" << std::endl;
 	Dude = newZombie("Einstein");
 	if (Dude == NULL) {
-		return 1;
+		return (1);
 	}
 	std::cout << "Einstein will now announce itself from main function" << std::endl;
 	Dude->announce();

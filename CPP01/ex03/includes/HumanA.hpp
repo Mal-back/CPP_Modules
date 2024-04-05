@@ -30,8 +30,8 @@ class HumanA {
 
 	private :
 
-		std::string	name;
-		Weapon&			Current_Weapon;
+		std::string	_name;
+		Weapon&			_current_Weapon;
 
 };
 

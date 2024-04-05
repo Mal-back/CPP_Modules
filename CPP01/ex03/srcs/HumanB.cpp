@@ -14,8 +14,8 @@
 #include "Weapon.hpp"
 #include <iostream>
 
-HumanB::HumanB(std::string name) : name(name) {
-	this->Current_Weapon = NULL;
+HumanB::HumanB(std::string name) : _name(name) {
+	this->_current_Weapon = NULL;
 	return ;
 }
 
@@ -24,10 +24,16 @@ HumanB::~HumanB( void ) {
 }
 
 void	HumanB::attack( void ) {
-	std::cout << this->name << " attacks with their " << Current_Weapon->getType() << std::endl;
+	std::cout << this->_name << " attacks with their "; 
+	if (this->_current_Weapon != NULL) {
+		std::cout << _current_Weapon->getType();
+	} else {
+		std::cout << "Bare hands";
+	}
+	std::cout << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon& new_weapon) {
-	this->Current_Weapon = &new_weapon;
+	this->_current_Weapon = &new_weapon;
 	return ;
 }

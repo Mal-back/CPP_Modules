@@ -31,8 +31,8 @@ class HumanB {
 
 	private :
 
-		Weapon			*Current_Weapon;
-		std::string	name;
+		Weapon			*_current_Weapon;
+		std::string	_name;
 
 };
 
