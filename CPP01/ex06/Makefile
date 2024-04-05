@@ -17,6 +17,8 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
+SUBDIRS = parsing exec debug
+
 SRC_FILES = main.cpp Harl.cpp 
 
 BUILD = build/
