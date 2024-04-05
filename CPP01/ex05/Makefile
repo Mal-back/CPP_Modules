@@ -17,7 +17,7 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = main.cpp newZombie.cpp Zombie.cpp randomChump.cpp
+SRC_FILES = Harl.cpp main.cpp 
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
@@ -28,7 +28,7 @@ CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 
-NAME = Zombie
+NAME = Harl
 
 ###########################################################################
 ###### Rules
@@ -42,7 +42,7 @@ $(BUILD)%.o: $(SRC)%.cpp
 	@mkdir -p $(BUILD)
 	$(CXX) $(CPPFLAGS) -MMD -MP -I$(INCLUDES) -c $< -o $@
 
--include $(DEPS)
+-include $(deps)
 
 clean :
 	rm -rf $(BUILD)

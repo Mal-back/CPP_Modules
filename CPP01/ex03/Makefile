@@ -35,14 +35,12 @@ NAME = Weapon
 
 all : $(NAME)
 
-$(NAME) : make_dir $(OBJ_FILES) 
+$(NAME) : $(OBJ_FILES) 
 	$(CXX) $(CPPFLAGS) $(OBJ_FILES) -o $(NAME)
 
 $(BUILD)%.o: $(SRC)%.cpp
-	$(CXX) $(CPPFLAGS) -I$(INCLUDES) -c $< -o $@
-
-make_dir :
 	@mkdir -p $(BUILD)
+	$(CXX) $(CPPFLAGS) -I$(INCLUDES) -c $< -o $@
 
 clean :
 	rm -rf $(BUILD)
@@ -55,4 +53,4 @@ to_push : fclean
 
 re : fclean all
 
-.PHONY : all clean fclean re make_dir to_push
+.PHONY : all clean fclean re to_push

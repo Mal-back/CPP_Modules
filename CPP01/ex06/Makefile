@@ -13,7 +13,7 @@ RESET	=	\033[0m
 ###### Sources and includes path
 INCLUDES = includes/
 
-DEPS = $(OBJ_FILES:%.o=%.d)
+DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
@@ -35,16 +35,14 @@ NAME = Harl
 
 all : $(NAME)
 
-$(NAME) : make_dir $(OBJ_FILES) $(DEPS)
+$(NAME) : $(OBJ_FILES) 
 	$(CXX) $(CPPFLAGS) $(OBJ_FILES) -o $(NAME)
 
--include $(DEPS)
-
 $(BUILD)%.o: $(SRC)%.cpp
-	$(CXX) $(CPPFLAGS) -MMD -I$(INCLUDES) -c $< -o $@
-
-make_dir :
 	@mkdir -p $(BUILD)
+	$(CXX) $(CPPFLAGS) -MMD -MP -I$(INCLUDES) -c $< -o $@
+
+-include $(deps)
 
 clean :
 	rm -rf $(BUILD)
@@ -57,4 +55,4 @@ to_push : fclean
 
 re : fclean all
 
-.PHONY : all clean fclean re make_dir to_push
+.PHONY : all clean fclean re to_push
