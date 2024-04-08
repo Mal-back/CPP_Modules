@@ -52,3 +52,16 @@ float	Point::getXAsFloat( void ) const {
 float	Point::getYAsFloat( void ) const {
 	return(this->getY().toFloat());
 }
+
+bool	Point::isCoordZero( void ) const {
+	if (this->getXAsFloat() <= 0.0 || this->getYAsFloat() <= 0.0) {
+		return (true);
+	} else {
+		return (false);
+	}
+}
+
+std::ostream& operator<<(std::ostream& o, Point const& rhs) {
+	std::cout << "X: " << rhs.getXAsFloat() << " Y: " << rhs.getYAsFloat();
+	return (o);
+}

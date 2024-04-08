@@ -31,11 +31,14 @@ class Point {
 		Fixed const&	getY( void ) const;
 		float					getXAsFloat( void ) const;
 		float					getYAsFloat( void ) const;
+		bool					isCoordZero( void ) const;
 
 	private :
 
 		Fixed	const	_xCoordinate;
 		Fixed const	_yCoordinate;
 } ;
+
+std::ostream	&	operator<<( std::ostream& o, Point const& rhs);
 
 #endif

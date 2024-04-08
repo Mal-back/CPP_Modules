@@ -15,35 +15,39 @@
 bool	bsp(Point const a, Point const b, Point const c, Point const point);
 
 int main( void ) {
-	Point a(1, 1);
-	Point b(1, 3);
-	Point c(3, 3);
-	Point point(1.1, 2);
+	Point a(0.0, 0.0);
+	Point b(12.24, 8.56);
+	Point c(24.42, 12.3);
+	Point point(8.8, 5.5);
 
 	if (bsp(a, b, c, point) == true) {
 		std::cout << "The point is inside the triangle" << std::endl;
 	} else {
 		std::cout << "The point is not inside the triangle" << std::endl;
 	}
-	point = Point(3, 3);
+
+	point = Point(2.5, 0.5);
 	if (bsp(a, b, c, point) == true) {
 		std::cout << "The point is inside the triangle" << std::endl;
 	} else {
 		std::cout << "The point is not inside the triangle" << std::endl;
 	}
-	point = Point(1, 1.7);
+
+	point = Point(0, 1.7);
 	if (bsp(a, b, c, point) == true) {
 		std::cout << "The point is inside the triangle" << std::endl;
 	} else {
 		std::cout << "The point is not inside the triangle" << std::endl;
 	}
+
 	point = Point(1.4, 1.7);
 	if (bsp(a, b, c, point) == true) {
 		std::cout << "The point is inside the triangle" << std::endl;
 	} else {
 		std::cout << "The point is not inside the triangle" << std::endl;
 	}
-	point = Point(3.1, 0.5);
+
+	point = Point(24.42, 12.3);
 	if (bsp(a, b, c, point) == true) {
 		std::cout << "The point is inside the triangle" << std::endl;
 	} else {
