@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/08 16:31:33 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/08 16:31:33 by purmerinos       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CLAPTRAP_HPP
+
+# define CLAPTRAP_HPP
+
+#include <string>
+#include <iostream>
+
+class ClapTrap {
+
+	public :
+
+		ClapTrap( std::string name);
+		ClapTrap( ClapTrap const& to_copy);
+		~ClapTrap( void );
+
+		ClapTrap&		operator=(ClapTrap const& rhs);
+
+		void				attack(const std::string& target_name);
+		void				takeDamage(unsigned int amount);
+		void				beRepaired(unsigned int amount);
+
+	private :
+
+		std::string		_name;
+		int						_attackDamage;
+		int						_hitPoints;
+		int						_energyPoint;
+} ;
+
+#endif
