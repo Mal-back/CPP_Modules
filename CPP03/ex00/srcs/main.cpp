@@ -13,9 +13,11 @@
 #include "ClapTrap.hpp"
 
 int	main( void ) {
-	ClapTrap wall_e("Wall-e");
-	ClapTrap robot(wall_e);
+	ClapTrap	wall_e("Wall-e");
+	ClapTrap	robot("Droid");
+	ClapTrap	copy(wall_e);
 
+	wall_e.printStat();
 	wall_e.attack("Garbage");
 	wall_e.takeDamage(5);
 	wall_e.takeDamage(15);

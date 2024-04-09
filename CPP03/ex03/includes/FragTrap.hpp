@@ -20,21 +20,23 @@ class FragTrap : virtual public ClapTrap {
 
 	public:
 
+		FragTrap( void );
 		FragTrap(const std::string& name);
 		FragTrap(const FragTrap& to_copy);
 		~FragTrap( void );
 
 		FragTrap&		operator=(FragTrap const& rhs);
 
-		void				highFiveGuys( void );
+		void				highFiveGuys( void ) const;
+		void				attack(const std::string& target_name);
+		void				takeDamage(unsigned int amount);
+		void				beRepaired(unsigned int amount);
+		void				printStat( void ) const;
 
 	protected :
 
-		std::string		_name;
-		int						_attackDamage;
-		void					attack(const std::string& target_name);
-		void					takeDamage(unsigned int amount);
-		void					beRepaired(unsigned int amount);
+		static int		_hitPoints;	
+		static int		_attackDamage;	
 } ; 
 
 #endif

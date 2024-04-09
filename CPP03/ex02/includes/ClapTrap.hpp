@@ -31,8 +31,9 @@ class ClapTrap {
 		void				attack(const std::string& target_name);
 		void				takeDamage(unsigned int amount);
 		void				beRepaired(unsigned int amount);
+		void				printStat( void ) const;
 
-	protected:
+	protected :
 
 		std::string		_name;
 		int						_attackDamage;

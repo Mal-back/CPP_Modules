@@ -20,6 +20,7 @@ class ScavTrap : virtual public ClapTrap {
 
 	public:
 
+		ScavTrap( void );
 		ScavTrap(const std::string& name);
 		ScavTrap(const ScavTrap& to_copy);
 		~ScavTrap( void );
@@ -27,13 +28,14 @@ class ScavTrap : virtual public ClapTrap {
 		ScavTrap&		operator=(ScavTrap const& rhs);
 
 		void				guardGate( void );
+		void				attack(const std::string& target_name);
 		void				takeDamage(unsigned int amount);
 		void				beRepaired(unsigned int amount);
+		void				printStat( void ) const;
 
 	protected :
 
-		int						_energyPoint;
-		void					attack(const std::string& target_name);
+		static int	_energyPoint;
 } ; 
 
 #endif

@@ -17,6 +17,8 @@ int	main( void ) {
 	ScavTrap scavtrap("ScavTrap");
 	ClapTrap claptrap("ClapTrap");
 
+	claptrap.printStat();
+	scavtrap.printStat();
 	scavtrap.guardGate();
 	scavtrap.attack("ClapTrap");
 	claptrap.takeDamage(30);

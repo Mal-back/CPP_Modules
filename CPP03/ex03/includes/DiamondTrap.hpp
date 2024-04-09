@@ -17,7 +17,28 @@
 # include "FragTrap.hpp"
 # include "ScavTrap.hpp"
 
-class DiamonTrap : public ScavTrap, public FragTrap {
+class DiamondTrap : public FragTrap, public ScavTrap {
+
+	public :
+
+		DiamondTrap( void );
+		DiamondTrap(const std::string& name);
+		DiamondTrap(const DiamondTrap& to_copy);
+		~DiamondTrap( void );
+
+		DiamondTrap&		operator=(DiamondTrap const& rhs);
+
+		void						highFiveGuys( void ) const;
+		void						guardGate( void );
+		void						attack(const std::string& target_name);
+		void						takeDamage(unsigned int amount);
+		void						beRepaired(unsigned int amount);
+		void						printStat( void ) const;
+		void						whoAmI( void ) const;
+
+	private :
+
+		std::string		_name;
 
 };
 

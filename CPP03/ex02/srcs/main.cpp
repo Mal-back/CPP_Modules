@@ -19,6 +19,9 @@ int	main( void ) {
 	ClapTrap	claptrap("ClapTrap");
 	FragTrap	fragtrap("FragTrap");
 
+	claptrap.printStat();
+	scavtrap.printStat();
+	fragtrap.printStat();
 	scavtrap.guardGate();
 	fragtrap.highFiveGuys();
 	scavtrap.attack("ClapTrap");

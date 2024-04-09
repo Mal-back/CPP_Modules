@@ -13,8 +13,9 @@
 #include "ClapTrap.hpp"
 #include <iostream>
 
-ClapTrap::ClapTrap( void ) {
-		std::cout << "ClapTrap default constructor called" << std::endl;
+ClapTrap::ClapTrap( void ): _name("RandomDude"), _attackDamage(0),
+	_hitPoints(10), _energyPoint(10) {
+		std::cout << "ClapTrap Default constructor called" << std::endl;
 		return ;
 	}
 
@@ -41,7 +42,7 @@ ClapTrap&		ClapTrap::operator=(ClapTrap const& rhs) {
 		this->_hitPoints = rhs._hitPoints;
 		this->_name = rhs._name;
 	}
-	std::cout << "ScavTrap copy operator overload called" << std::endl;
+	std::cout << "ClapTrap copy operator overload called" << std::endl;
 	return (*this);
 }
 
@@ -90,4 +91,12 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	_hitPoints += amount;
 	_energyPoint -= 1;
 	std::cout << " He know has " << this->_hitPoints << " hit points." << std::endl;
+}
+
+void	ClapTrap::printStat( void ) const {
+	std::cout << "ClapTrap " << this->_name << " stats :" << std::endl;
+	std::cout << "Hit points : " << this->_hitPoints << std::endl;
+	std::cout << "Energy points : " << this->_energyPoint << std::endl;
+	std::cout << "Attack points : " << this->_attackDamage << std::endl;
+	return ;
 }

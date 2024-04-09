@@ -21,6 +21,7 @@ class ClapTrap {
 
 	public :
 
+		ClapTrap( void );
 		ClapTrap( std::string name);
 		ClapTrap( ClapTrap const& to_copy);
 		~ClapTrap( void );
@@ -30,6 +31,7 @@ class ClapTrap {
 		void				attack(const std::string& target_name);
 		void				takeDamage(unsigned int amount);
 		void				beRepaired(unsigned int amount);
+		void				printStat( void ) const;
 
 	private :
 

@@ -11,24 +11,36 @@
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "DiamondTrap.hpp"
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
 int	main( void ) {
-	ScavTrap	scavtrap("ScavTrap");
-	ClapTrap	claptrap("ClapTrap");
-	FragTrap	fragtrap("FragTrap");
+	DiamondTrap monstruosity("Dude");
 
-	scavtrap.guardGate();
-	fragtrap.highFiveGuys();
-	scavtrap.attack("ClapTrap");
-	claptrap.takeDamage(20);
-	claptrap.takeDamage(30);
-	fragtrap.attack("ScavTrap");
-	scavtrap.takeDamage(30);
-	scavtrap.beRepaired(52);
-	scavtrap.attack("FragTrap");
-	fragtrap.takeDamage(20);
-	fragtrap.beRepaired(20);
+	monstruosity.printStat();
+	monstruosity.attack("TrashCan");
+	monstruosity.beRepaired(4);
+	monstruosity.takeDamage(12);
+	monstruosity.whoAmI();
+	monstruosity.guardGate();
+	monstruosity.highFiveGuys();
+
+	DiamondTrap random;
+
+	random.printStat();
+	random.attack("TrashCan");
+	random.beRepaired(4);
+	random.takeDamage(12);
+	random.whoAmI();
+	random.guardGate();
+	random.highFiveGuys();
+
+	DiamondTrap	random_copy(random);
+
+	random.printStat();
+	random.whoAmI();
+
+
 	return (0);
 }

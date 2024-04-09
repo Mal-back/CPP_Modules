@@ -11,9 +11,17 @@
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
-#include "ClapTrap.hpp"
 
-ScavTrap::ScavTrap(std::string const& name) : ClapTrap() {
+ScavTrap::ScavTrap( void ) : ClapTrap() {
+	std::cout << "ScavTrap Default constructor called" << std::endl;
+	this->_name = "RandomDude";
+	this->_attackDamage = 20;
+	this->_energyPoint = 50;
+	this->_hitPoints = 100;
+	return ;
+}
+
+ScavTrap::ScavTrap(std::string const& name) : ClapTrap(name) {
 	std::cout << "ScavTrap name constructor called" << std::endl;
 	this->_name = name;
 	this->_attackDamage = 20;
@@ -22,7 +30,7 @@ ScavTrap::ScavTrap(std::string const& name) : ClapTrap() {
 	return ;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& to_copy) : ClapTrap() {
+ScavTrap::ScavTrap(const ScavTrap& to_copy) : ClapTrap(to_copy._name) {
 	*this = to_copy;
 	std::cout << "ScavTrap copy constructor called" << std::endl;
 	return ;
@@ -93,4 +101,12 @@ void	ScavTrap::beRepaired(unsigned int amount) {
 	_hitPoints += amount;
 	_energyPoint -= 1;
 	std::cout << " He know has " << this->_hitPoints << " hit points." << std::endl;
+}
+
+void	ScavTrap::printStat( void ) const {
+	std::cout << "ScavTrap " << this->_name << " stats :" << std::endl;
+	std::cout << "Hit points : " << this->_hitPoints << std::endl;
+	std::cout << "Energy points : " << this->_energyPoint << std::endl;
+	std::cout << "Attack points : " << this->_attackDamage << std::endl;
+	return ;
 }

@@ -13,7 +13,16 @@
 #include "FragTrap.hpp"
 #include "ClapTrap.hpp"
 
-FragTrap::FragTrap(std::string const& name) : ClapTrap() {
+FragTrap::FragTrap( void ) : ClapTrap() {
+	std::cout << "FragTrap default constructor called" << std::endl;
+	this->_name = "RandomDude";
+	this->_attackDamage = 30;
+	this->_energyPoint = 100;
+	this->_hitPoints = 100;
+	return ;
+}
+
+FragTrap::FragTrap(std::string const& name) : ClapTrap(name) {
 	std::cout << "FragTrap name constructor called" << std::endl;
 	this->_name = name;
 	this->_attackDamage = 30;
@@ -22,7 +31,7 @@ FragTrap::FragTrap(std::string const& name) : ClapTrap() {
 	return ;
 }
 
-FragTrap::FragTrap(const FragTrap& to_copy) : ClapTrap() {
+FragTrap::FragTrap(const FragTrap& to_copy) : ClapTrap(to_copy._name) {
 	*this = to_copy;
 	std::cout << "FragTrap copy constructor called" << std::endl;
 	return ;
@@ -43,7 +52,7 @@ FragTrap::~FragTrap( void ) {
 	std::cout << "FragTrap destructor called" << std::endl;
 }
 
-void	FragTrap::highFiveGuys( void ) {
+void	FragTrap::highFiveGuys( void ) const {
 	std::cout << "FragTrap " << this->_name << " want to highfive his mates !" << std::endl;
 	return ;
 }
@@ -93,4 +102,12 @@ void	FragTrap::beRepaired(unsigned int amount) {
 	_hitPoints += amount;
 	_energyPoint -= 1;
 	std::cout << " He know has " << this->_hitPoints << " hit points." << std::endl;
+}
+
+void	FragTrap::printStat( void ) const {
+	std::cout << "FragTrap " << this->_name << " stats :" << std::endl;
+	std::cout << "Hit points : " << this->_hitPoints << std::endl;
+	std::cout << "Energy points : " << this->_energyPoint << std::endl;
+	std::cout << "Attack points : " << this->_attackDamage << std::endl;
+	return ;
 }

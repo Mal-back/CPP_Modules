@@ -17,18 +17,18 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = ClapTrap.cpp main.cpp ScavTrap.cpp FragTrap.cpp
+SRC_FILES = ClapTrap.cpp main.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -Wshadow -Wno-shadow
 
 CXX = c++
 
-NAME = FragTrap
+NAME = DiamondTrap
 
 ###########################################################################
 ###### Rules
