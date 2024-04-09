@@ -21,7 +21,6 @@ DiamondTrap::DiamondTrap( void ) :
 		std::cout << "DiamondTrap name constructor called" << std::endl;
 		DiamondTrap::_name = "random_dude";
 		ClapTrap::_name = "random_dude_clap_trap";
-		ScavTrap::_name = "random_dude_scav_trap";
 		DiamondTrap::_hitPoints = this->FragTrap::_hitPoints;
 		DiamondTrap::_energyPoint = this->ScavTrap::_energyPoint;
 		DiamondTrap::_attackDamage = this->FragTrap::_attackDamage;
@@ -32,7 +31,6 @@ DiamondTrap::DiamondTrap(const std::string& name) :
 		std::cout << "DiamondTrap name constructor called" << std::endl;
 		DiamondTrap::_name = name;
 		ClapTrap::_name = name + "_clap_trap";
-		ScavTrap::_name = name + "_scav_trap";
 		DiamondTrap::_hitPoints = this->FragTrap::_hitPoints;
 		DiamondTrap::_energyPoint = this->ScavTrap::_energyPoint;
 		DiamondTrap::_attackDamage = this->FragTrap::_attackDamage;
