@@ -12,10 +12,10 @@
 
 #ifndef CLAPTRAP_HPP
 
-# define CLAPTRAP_HPP
-
 #include <string>
 #include <iostream>
+
+# define CLAPTRAP_HPP
 
 class ClapTrap {
 

@@ -14,7 +14,9 @@
 
 # define SCAVTRAP_HPP
 
-#include "ClapTrap.hpp"
+# include "ClapTrap.hpp"
+# include <string>
+# include <iostream>
  
 class ScavTrap : virtual public ClapTrap {
 
@@ -29,13 +31,7 @@ class ScavTrap : virtual public ClapTrap {
 
 		void				guardGate( void );
 		void				attack(const std::string& target_name);
-		void				takeDamage(unsigned int amount);
-		void				beRepaired(unsigned int amount);
 		void				printStat( void ) const;
-
-	protected :
-
-		static int	_energyPoint;
 } ; 
 
 #endif

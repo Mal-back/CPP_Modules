@@ -71,39 +71,6 @@ void		ScavTrap::attack(std::string const& target) {
 	return ;
 }
 
-void	ScavTrap::takeDamage(unsigned int amount) {
-	
-	if (this->_hitPoints == 0) {
-		std::cout << "ScavTrap " << this->_name << " is already dead..." << std::endl;
-		return ;
-	}
-	std::cout << "ScavTrap " << this->_name << " took " << amount << " damage. ";
-	this->_hitPoints -= amount;
-	if (this->_hitPoints < 0) {
-		this->_hitPoints = 0;
-		std::cout << "ScavTrap " << this->_name << " died from damage taken..." << std::endl;
-	} else {
-		std::cout << "ScavTrap " << this->_name << " has know " 
-			<< this->_hitPoints << " hit points remaining." << std::endl;	
-	}
-	return ;
-}
-
-void	ScavTrap::beRepaired(unsigned int amount) {
-	if (this->_energyPoint == 0) {
-		std::cout << "ScavTrap " << this->_name << " has no more energy\
- point to do anything !" << std::endl;
-		return ;
-	} else if (this->_hitPoints == 0) {
-		std::cout << "ScavTrap " << this->_name << " is already dead..." << std::endl;
-		return ;
-	}
-	std::cout << "ScavTrap " << this->_name << " was repaired of " << amount << " .";
-	_hitPoints += amount;
-	_energyPoint -= 1;
-	std::cout << " He know has " << this->_hitPoints << " hit points." << std::endl;
-}
-
 void	ScavTrap::printStat( void ) const {
 	std::cout << "ScavTrap " << this->_name << " stats :" << std::endl;
 	std::cout << "Hit points : " << this->_hitPoints << std::endl;

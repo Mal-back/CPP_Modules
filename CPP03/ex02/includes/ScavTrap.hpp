@@ -12,9 +12,11 @@
 
 #ifndef CLAPTRAP_HPP
 
-# define CLAPTRAP_HPP
-
 #include "ClapTrap.hpp"
+#include <string>
+#include <iostream>
+
+# define CLAPTRAP_HPP
  
 class ScavTrap : public ClapTrap {
 
@@ -29,8 +31,6 @@ class ScavTrap : public ClapTrap {
 
 		void				guardGate( void ) const;
 		void				attack(const std::string& target_name);
-		void				takeDamage(unsigned int amount);
-		void				beRepaired(unsigned int amount);
 		void				printStat( void ) const;
 } ; 
 

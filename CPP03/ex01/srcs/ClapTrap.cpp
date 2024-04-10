@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
-#include <iostream>
 
 ClapTrap::ClapTrap( void ): _name("RandomDude"), _attackDamage(0),
 	_hitPoints(10), _energyPoint(10) {

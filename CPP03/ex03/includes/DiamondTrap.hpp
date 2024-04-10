@@ -16,6 +16,8 @@
 
 # include "FragTrap.hpp"
 # include "ScavTrap.hpp"
+# include <string>
+# include <iostream>
 
 class DiamondTrap : public FragTrap, public ScavTrap {
 
@@ -28,11 +30,7 @@ class DiamondTrap : public FragTrap, public ScavTrap {
 
 		DiamondTrap&		operator=(DiamondTrap const& rhs);
 
-		void						highFiveGuys( void ) const;
-		void						guardGate( void );
-		void						attack(const std::string& target_name);
-		void						takeDamage(unsigned int amount);
-		void						beRepaired(unsigned int amount);
+		using 					ScavTrap::attack;
 		void						printStat( void ) const;
 		void						whoAmI( void ) const;
 

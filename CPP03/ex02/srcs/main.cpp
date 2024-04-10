@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
@@ -18,6 +17,7 @@ int	main( void ) {
 	ScavTrap	scavtrap("ScavTrap");
 	ClapTrap	claptrap("ClapTrap");
 	FragTrap	fragtrap("FragTrap");
+	FragTrap	fragtrap2("FragTrap");
 
 	claptrap.printStat();
 	scavtrap.printStat();
@@ -33,5 +33,15 @@ int	main( void ) {
 	scavtrap.attack("FragTrap");
 	fragtrap.takeDamage(20);
 	fragtrap.beRepaired(20);
+	claptrap.printStat();
+	scavtrap.printStat();
+	fragtrap.printStat();
+	for (int i = 0; i < 102; ++i) {
+		fragtrap.beRepaired(2);
+	}
+	claptrap.printStat();
+	scavtrap.printStat();
+	fragtrap.printStat();
+	fragtrap2.printStat();
 	return (0);
 }

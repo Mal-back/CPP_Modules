@@ -12,9 +12,11 @@
 
 #ifndef FRAGTRAP_HPP
 
-# define FRAGTRAP_HPP
-
 #include "ClapTrap.hpp"
+#include <string>
+#include <iostream>
+
+# define FRAGTRAP_HPP
  
 class FragTrap : public ClapTrap {
 
@@ -28,9 +30,6 @@ class FragTrap : public ClapTrap {
 		FragTrap&		operator=(FragTrap const& rhs);
 
 		void				highFiveGuys( void ) const;
-		void				attack(const std::string& target_name);
-		void				takeDamage(unsigned int amount);
-		void				beRepaired(unsigned int amount);
 		void				printStat( void ) const;
 } ; 
 
