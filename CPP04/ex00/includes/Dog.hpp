@@ -22,7 +22,7 @@ class Dog : public Animal {
 
 		Dog( void );
 		Dog( const Dog& to_copy );
-		~Dog( void );
+		virtual ~Dog( void );
 
 		Dog&			operator=(const Dog& rhs);
 

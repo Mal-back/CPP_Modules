@@ -23,11 +23,12 @@ class WrongAnimal {
 
 		WrongAnimal( void );
 		WrongAnimal( const WrongAnimal& to_copy );
-		~WrongAnimal( void );
+		virtual ~WrongAnimal( void );
 
 		WrongAnimal&			operator=(const WrongAnimal& rhs);
 
 		virtual void				makeSound( void ) const;	
+		const std::string&	getType( void ) const;
 
 	protected :
 

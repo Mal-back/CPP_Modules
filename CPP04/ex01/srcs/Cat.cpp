@@ -26,14 +26,14 @@ Cat::~Cat( void ) {
 
 Cat::Cat(const Cat& to_copy) : Animal() {
 	std::cout << "Cat copy constructor Called" << std::endl;
-	this->_type = to_copy._type;
+	this->_type = to_copy.getType();
 	if (this->_brain != NULL) { *this->_brain = *to_copy._brain; }
 	return ;
 }
 
 Cat&		Cat::operator=(Cat const& rhs) {	
 	if (this != &rhs) {
-		this->_type = rhs._type;
+		this->_type = rhs.getType();
 		if (this->_brain != NULL) { *this->_brain = *rhs._brain; }
 	}
 	std::cout << "Cat equal operator overload Called" << std::endl;
@@ -43,4 +43,16 @@ Cat&		Cat::operator=(Cat const& rhs) {
 void		Cat::makeSound( void ) const {
 	std::cout << "Meooooooooow !" << std::endl;
 	return ;
+}
+
+void	Cat::set_idea( const std::string& new_idea ) const {
+	_brain->set_idea(new_idea);
+}
+
+void	Cat::print_idea( int n ) const {
+	_brain->print_idea(n);
+}
+
+void	Cat::print_idea_list( void ) const {
+	_brain->print_idea_list();
 }

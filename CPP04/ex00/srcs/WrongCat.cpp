@@ -26,14 +26,13 @@ WrongCat::~WrongCat( void ) {
 
 WrongCat::WrongCat(const WrongCat& to_copy) : WrongAnimal(){
 	std::cout << "WrongCat copy constructor Called" << std::endl;
-	this->_type = to_copy._type;
+	this->_type = to_copy.getType();
 	return ;
 }
 
 WrongCat&		WrongCat::operator=(WrongCat const& rhs) {	
-	if (this != &rhs)
-	{
-		this->_type = rhs._type;
+	if (this != &rhs) {
+		this->_type = rhs.getType();
 	}
 	std::cout << "WrongCat equal operator overload Called" << std::endl;
 	return (*this);

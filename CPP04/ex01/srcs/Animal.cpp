@@ -29,14 +29,14 @@ Animal::~Animal( void ) {
 Animal::Animal(const Animal& to_copy): _brain(new(std::nothrow) Brain()){
 	std::cout << "Animal copy constructor Called" << std::endl;
 	if (this->_brain != NULL) { (*this->_brain = *to_copy._brain); }
-	this->_type = to_copy._type;
+	this->_type = to_copy.getType();
 	return ;
 }
 
 Animal&		Animal::operator=(Animal const& rhs) {	
 	if (this != &rhs) {
-		this->_type = rhs._type;
-		*this->_brain = *rhs._brain;
+		this->_type = rhs.getType();
+		if (this->_brain != NULL) { *this->_brain = *rhs._brain; }
 	}
 	std::cout << "Animal equal operator overload Called" << std::endl;
 	return (*this);
@@ -54,14 +54,27 @@ bool	Animal::getBrainIntegrity( void ) const {
 	}
 }
 
+void	Animal::printBrainAdress( void ) const {
+	std::cout << "My brain live at adress : " << &this->_brain << " !" <<std::endl;
+}
+
 void	Animal::set_idea( const std::string& new_idea ) const {
-	_brain->set_idea(new_idea);
+	(void)new_idea;
+	std::cout << "Abstracts animals can't have ideas" << std::endl;
+	return ;
 }
 
 void	Animal::print_idea( int n ) const {
-	_brain->print_idea(n);
+	(void)n;
+	std::cout << "Abstracts animals can't have ideas" << std::endl;
+	return ;
 }
 
 void	Animal::print_idea_list( void ) const {
-	_brain->print_idea_list();
+	std::cout << "Abstracts animals can't have ideas" << std::endl;
+	return ;
+}
+
+const std::string&	Animal::getType( void ) const {
+	return (this->_type);
 }

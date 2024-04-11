@@ -22,7 +22,7 @@ class WrongCat : public WrongAnimal {
 
 		WrongCat( void );
 		WrongCat( const WrongCat& to_copy );
-		~WrongCat( void );
+		virtual ~WrongCat( void );
 
 		WrongCat&			operator=(const WrongCat& rhs);
 

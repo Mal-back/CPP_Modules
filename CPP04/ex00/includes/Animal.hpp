@@ -23,11 +23,12 @@ class Animal {
 
 		Animal( void );
 		Animal( const Animal& to_copy );
-		~Animal( void );
+		virtual ~Animal( void );
 
 		Animal&			operator=(const Animal& rhs);
 
 		virtual void				makeSound( void ) const;	
+		const std::string&	getType( void ) const;
 
 	protected :
 

@@ -27,10 +27,12 @@ class Animal {
 		Animal&			operator=(const Animal& rhs);
 
 		virtual void				makeSound( void ) const;	
+		const std::string&	getType( void ) const;
 		bool								getBrainIntegrity( void ) const ;
-		void								set_idea( const std::string& new_idea ) const;
-		void								print_idea( int n ) const;
-		void								print_idea_list( void ) const;
+		void								printBrainAdress( void ) const;
+		virtual void				set_idea( const std::string& new_idea ) const;
+		virtual void				print_idea( int n ) const;
+		virtual void				print_idea_list( void ) const;
 
 	protected :
 

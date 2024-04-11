@@ -25,14 +25,13 @@ Dog::~Dog( void ) {
 
 Dog::Dog(const Dog& to_copy) : Animal() {
 	std::cout << "Dog copy constructor Called" << std::endl;
-	this->_type = to_copy._type;
+	this->_type = to_copy.getType();
 	return ;
 }
 
 Dog&		Dog::operator=(Dog const& rhs) {	
-	if (this != &rhs)
-	{
-		this->_type = rhs._type;
+	if (this != &rhs) {
+		this->_type = rhs.getType();
 	}
 	std::cout << "Dog equal operator overload Called" << std::endl;
 	return (*this);

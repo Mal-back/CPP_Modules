@@ -25,14 +25,13 @@ Cat::~Cat( void ) {
 
 Cat::Cat(const Cat& to_copy) : Animal() {
 	std::cout << "Cat copy constructor Called" << std::endl;
-	this->_type = to_copy._type;
+		this->_type = to_copy.getType();
 	return ;
 }
 
 Cat&		Cat::operator=(Cat const& rhs) {	
-	if (this != &rhs)
-	{
-		this->_type = rhs._type;
+	if (this != &rhs) {
+		this->_type = rhs.getType();
 	}
 	std::cout << "Cat equal operator overload Called" << std::endl;
 	return (*this);
