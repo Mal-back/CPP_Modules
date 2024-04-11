@@ -17,7 +17,7 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = 
+SRC_FILES = Animal.cpp Cat.cpp Dog.cpp main.cpp Brain.cpp 
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
@@ -28,7 +28,7 @@ CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 
-NAME =
+NAME = BrainedAnimals
 
 ###########################################################################
 ###### Rules
