@@ -20,6 +20,7 @@ Cure::Cure( void ): AMateria("cure") {
 }
 
 Cure::Cure(const Cure& to_copy) : AMateria("cure") {
+	(void)to_copy;
 	return ;
 }
 
@@ -28,6 +29,7 @@ Cure::~Cure ( void ) {
 }
 
 Cure&		Cure::operator=(const Cure& rhs) {
+	(void)rhs;
 	return (*this);
 }
 

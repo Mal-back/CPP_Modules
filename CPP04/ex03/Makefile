@@ -17,18 +17,19 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = 
+SRC_FILES = AMateria.cpp Character.cpp Cure.cpp Ice.cpp main.cpp MateriaSource.cpp\
+						Poison.cpp Lightning.cpp Fire.cpp
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 
 CXX = c++
 
-NAME =
+NAME = Materia
 
 ###########################################################################
 ###### Rules

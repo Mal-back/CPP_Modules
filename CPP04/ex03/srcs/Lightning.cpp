@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.cpp                                            :+:      :+:    :+:   */
+/*   Lightning.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 19:25:37 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/12 19:25:38 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/13 16:41:36 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/13 16:42:55 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Ice.hpp"
+#include "Lightning.hpp"
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 #include <new>
 
-Ice::Ice( void ): AMateria("ice") {
+Lightning::Lightning( void ): AMateria("lightning") {
 	return ;
 }
 
-Ice::Ice(const Ice& to_copy) : AMateria("ice") {
+Lightning::Lightning(const Lightning& to_copy) : AMateria("lightning") {
 	(void)to_copy;
 	return ;
 }
 
-Ice::~Ice ( void ) {
+Lightning::~Lightning ( void ) {
 	return ;
 }
 
-Ice&		Ice::operator=(const Ice& rhs) {
+Lightning&		Lightning::operator=(const Lightning& rhs) {
 	(void)rhs;
 	return (*this);
 }
 
-void	Ice::use( ICharacter& target) const {
-	std::cout << "* shoots an ice bolt at " << target.getName() <<" *" << std::endl;
+void	Lightning::use( ICharacter& target) const {
+	std::cout << "* summon lightning on " << target.getName() <<" *" << std::endl;
 	return ;
 }
 
-AMateria*	Ice::clone() const {
-	AMateria*	new_one = new(std::nothrow) Ice(*this);
+AMateria*	Lightning::clone() const {
+	AMateria*	new_one = new(std::nothrow) Lightning(*this);
 	return (new_one);
 }

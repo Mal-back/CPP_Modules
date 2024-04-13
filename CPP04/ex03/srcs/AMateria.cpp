@@ -40,6 +40,11 @@ void	AMateria::_setType( const std::string& new_type ) {
 	return ;
 }
 
+const std::string&	AMateria::getType( void) const {
+	return(this->_type);
+}
+
 void	AMateria::use( ICharacter& target) const {
+	(void)target;
 	return ;
 }

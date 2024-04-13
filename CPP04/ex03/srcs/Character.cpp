@@ -65,9 +65,10 @@ void	Character::_copyMateria(const Character& src) {
 }
 
 void	Character::equip(AMateria *m) {
-	for (int i; i < 4; ++i) {
-		if (this->_materiaTab[i] != NULL) {
+	for (int i = 0; i < 4; ++i) {
+		if (this->_materiaTab[i] == NULL) {
 			this->_materiaTab[i] = m;
+			break;
 		}
 	}
 	return ;
@@ -87,4 +88,8 @@ void Character::use(int idx, ICharacter& target) {
 	this->_materiaTab[idx]->use(target);
 	delete this->_materiaTab[idx];
 	this->_materiaTab[idx] = NULL;
+}
+
+const std::string&	Character::getName( void ) const {
+	return(this->_name);
 }

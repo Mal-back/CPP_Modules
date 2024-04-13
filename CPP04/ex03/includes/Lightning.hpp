@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Icharacter.hpp                                     :+:      :+:    :+:   */
+/*   Lightning.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 19:53:44 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/11 19:53:45 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/13 16:39:29 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/13 16:40:51 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICHARACTER_HPP
+#ifndef LIGHTNING_HPP
 
+#include "AMateria.hpp"
 #include <string>
+#include <iostream>
 
-# define ICHARACTER_HPP
+# define LIGHTNING_HPP
 
-class AMateria;
+class Lightning : public AMateria {
+	public :
 
-class ICharacter
-{
-	public:
+		Lightning( void );
+		Lightning( Lightning const& to_copy);
+		~Lightning( void );
 
-		virtual ~ICharacter() {}
+		Lightning&		operator=(const Lightning& rhs);
 
-		virtual std::string const & getName() const = 0;
-		virtual void 							equip(AMateria* m) = 0;
-		virtual void 							unequip(int idx) = 0;
-		virtual void 							use(int idx, ICharacter& target) = 0;
+		virtual AMateria*			clone( void ) const;
+		virtual	void					use( ICharacter& target) const;
+	
 };
 
 #endif

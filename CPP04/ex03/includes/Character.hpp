@@ -28,7 +28,7 @@ class Character : public ICharacter {
 		Character(const Character& to_copy);
 		virtual ~Character( void );
 
-		Character&	operator=(const Character& to_copy);
+		virtual Character&	operator=(const Character& to_copy);
 
 		virtual std::string const & getName() const;
 		virtual void equip(AMateria* m);

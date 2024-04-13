@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.cpp                                            :+:      :+:    :+:   */
+/*   Fire.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 19:25:37 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/12 19:25:38 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/04/13 16:41:27 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/04/13 16:41:41 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Ice.hpp"
+#include "Fire.hpp"
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 #include <new>
 
-Ice::Ice( void ): AMateria("ice") {
+Fire::Fire( void ): AMateria("fire") {
 	return ;
 }
 
-Ice::Ice(const Ice& to_copy) : AMateria("ice") {
+Fire::Fire(const Fire& to_copy) : AMateria("fire") {
 	(void)to_copy;
 	return ;
 }
 
-Ice::~Ice ( void ) {
+Fire::~Fire ( void ) {
 	return ;
 }
 
-Ice&		Ice::operator=(const Ice& rhs) {
+Fire&		Fire::operator=(const Fire& rhs) {
 	(void)rhs;
 	return (*this);
 }
 
-void	Ice::use( ICharacter& target) const {
-	std::cout << "* shoots an ice bolt at " << target.getName() <<" *" << std::endl;
+void	Fire::use( ICharacter& target) const {
+	std::cout << "* shoots a fireball at " << target.getName() <<" *" << std::endl;
 	return ;
 }
 
-AMateria*	Ice::clone() const {
-	AMateria*	new_one = new(std::nothrow) Ice(*this);
+AMateria*	Fire::clone() const {
+	AMateria*	new_one = new(std::nothrow) Fire(*this);
 	return (new_one);
 }
