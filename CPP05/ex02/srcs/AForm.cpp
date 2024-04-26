@@ -10,34 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
-#include <memory_resource>
 
-Form::Form( void ): _name("Random Form"), _isSigned(false),
+AForm::AForm( void ): _name("Random AForm"), _isSigned(false),
 	_execRank(20), _SignRank(5) {
 	return ;
 }
 
-Form::Form(const Form& to_copy): _name(to_copy.getName()),
+AForm::AForm( const std::string& name, const int signRank, const int execRank) :
+	_name(name), _isSigned(false), _execRank(execRank), _SignRank(signRank) {
+		return ;
+	}
+
+AForm::AForm(const AForm& to_copy): _name(to_copy.getName()),
 _isSigned(to_copy.getState()) ,_execRank(to_copy.getExecRank()),
 	_SignRank(to_copy.getSignedRank()) {
 	return ;
 }
 
-Form::~Form( void ) {
+AForm::~AForm( void ) {
 	return ;
 }
 
-Form&		Form::operator=(const Form& rhs) {
+AForm&		AForm::operator=(const AForm& rhs) {
 	if (this != &rhs) {
 		this->_isSigned = rhs.getState();
 	}	
 	return (*this);
 }
 
-std::ostream&		operator<<(std::ostream &o, const Form& rhs) {
+std::ostream&		operator<<(std::ostream &o, const AForm& rhs) {
 	std::cout << "Form Name : " << rhs.getName() << std::endl;
 	std::cout << "Form State : ";
 	if (rhs.getState() == false) {
@@ -51,27 +55,41 @@ std::ostream&		operator<<(std::ostream &o, const Form& rhs) {
 	return (o);
 }
 
-int	Form::getSignedRank( void ) const {
+int	AForm::getSignedRank( void ) const {
 	return (this->_SignRank);
 }
 
-int	Form::getExecRank( void ) const {
+int	AForm::getExecRank( void ) const {
 	return (this->_execRank);
 }
 
-bool	Form::getState( void ) const {
+bool	AForm::getState( void ) const {
 	return(this->_isSigned);
 }
 
-const std::string Form::getName( void ) const {
+const std::string AForm::getName( void ) const {
 	return (this->_name);
 }
 
-const char*		Form::GradeTooLow::what() const throw() {
+void	AForm::execute(const Bureaucrat& executor) const {
+	if (this->getState() == false) {
+		throw FormNotSigned();
+	} else if (this->_execRank < executor.getGrade()) {
+		throw GradeTooLow();
+	} else {
+		this->_printForm();
+	}
+}
+
+const char*		AForm::GradeTooLow::what() const throw() {
 	return (" Grade too low, bureaucrat couldn't sign the form");
 }
 
-void	Form::beSigned(const Bureaucrat& signing_one) {
+const char*		AForm::FormNotSigned::what() const throw() {
+	return (" Form is not signed, couldn't be executed");
+}
+
+void	AForm::beSigned(const Bureaucrat& signing_one) {
 	if (this->getSignedRank() < signing_one.getGrade()) {
 		throw GradeTooLow();
 	} else {

@@ -10,34 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
+#ifndef AFORM_HPP
 
-# define FORM_HPP
+# define AFORM_HPP
 
 #include <ostream>
 #include <string>
 class Bureaucrat;
 
-class Form {
+class AForm {
 
 	public :
 
-		Form( void );
-		Form( const Form& to_copy);
-		~Form( void );
+		AForm( void );
+		AForm( const std::string& name, const int signRank, const int execRank );
+		AForm( const AForm& to_copy);
+		virtual ~AForm( void );
 
-		Form&		operator=(const Form& rhs);
+		AForm&		operator=(const AForm& rhs);
 
-		int 							getSignedRank( void ) const;
-		bool							getState( void ) const;
-		void							beSigned(const Bureaucrat& signingOne);
-		int 							getExecRank( void ) const;
-		const std::string	getName( void ) const;
+		int 														getSignedRank( void ) const;
+		bool														getState( void ) const;
+		void														beSigned(const Bureaucrat& signingOne);
+		int 														getExecRank( void ) const;
+		const std::string								getName( void ) const;
+		void														execute(const Bureaucrat& executor) const;
 		class GradeTooLow : public std::exception {
 			public :
 
 				virtual const char* what() const throw();
 		};
+		class FormNotSigned : public std::exception {
+			public :
+
+				virtual const char* what() const throw();
+		};
+
+	protected :
+
+		virtual void		_printForm( void ) const = 0;
 
 	private :
 
@@ -46,8 +57,9 @@ class Form {
 		const int					_execRank;
 		const int					_SignRank;
 
+
 };
 
-std::ostream&		operator<<(std::ostream &o, const Form& rhs);
+std::ostream&		operator<<(std::ostream &o, const AForm& rhs);
 
 #endif

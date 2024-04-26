@@ -12,9 +12,11 @@
 
 #include <exception>
 #include <iostream>
+#include <new>
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include "RobotyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
@@ -92,4 +94,44 @@ int	main() {
 	lisa.executeForm(shrub);
 	lisa.executeForm(robot);
 	lisa.executeForm(pardon);
+
+	Intern random;
+	AForm* form1;
+	AForm* form2;
+	AForm* form3;
+
+	std::cout << "Intern is here" << std::endl;
+	try {
+		form1 = random.makeForm("ShrubberyCreationForm", "lalala");
+	} catch (std::bad_alloc& e) {
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+	try {
+		form2 = random.makeForm("PresidentialPardonForm", "lalala");
+	} catch (std::bad_alloc& e) {
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+	try {
+		form3 = random.makeForm("Failed", "lalala");
+	} catch (std::bad_alloc& e) {
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+	try {
+		form3 = random.makeForm("PresidentialPardonForm", "lalala");
+	} catch (std::bad_alloc& e) {
+		std::cerr << e.what() << std::endl;
+		return (1);
+	}
+	lisa.signForm(*form1);
+	lisa.signForm(*form2);
+	lisa.signForm(*form3);
+	lisa.executeForm(*form1);
+	lisa.executeForm(*form2);
+	lisa.executeForm(*form3);
+	delete form1;
+	delete form2;
+	delete form3;
 }

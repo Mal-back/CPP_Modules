@@ -18,7 +18,7 @@ DEPS = $(OBJ_FILES:.o=.d)
 SRC = srcs/
 
 SRC_FILES = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp main.cpp\
-						PresidentialPardonForm.cpp RobotomyRequestForm.cpp
+						PresidentialPardonForm.cpp RobotomyRequestForm.cpp Intern.cpp\
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
