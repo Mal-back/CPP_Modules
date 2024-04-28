@@ -28,7 +28,7 @@ CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 
-NAME = Templates
+NAME = Array
 
 ###########################################################################
 ###### Rules
