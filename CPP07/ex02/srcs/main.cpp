@@ -13,7 +13,7 @@
 #include <exception>
 #include <iostream>
 #include <Array.hpp>
-#include <Array2.hpp>
+#include <Array.tpp>
 
 int main( void ) {
 	Array<int> int_arr(12);
