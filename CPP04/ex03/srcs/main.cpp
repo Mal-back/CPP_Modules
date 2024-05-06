@@ -187,6 +187,7 @@ are destroyed with the charatcer" << std::endl << std::endl;
 		tmp = NULL;
 		you->use(2, *me);
 		*src2 = *src;
+		delete src;
 		tmp = src2->createMateria("fire");
 		me->equip(tmp);
 		tmp = NULL;
@@ -210,7 +211,7 @@ are destroyed with the charatcer" << std::endl << std::endl;
 		you->use(3, *me);
 		delete me;
 		delete you;
-		delete src;
+		// delete src;
 		delete src2;
 	}
 	return 0;
