@@ -29,6 +29,7 @@ class Span {
 		unsigned int	longestSpan( void ) const;
 		void					addNumber(unsigned int n);
 		void					addNumber(unsigned int first, unsigned int last);
+		void					printArr( void ) const;
 
 		class fullSpan : public std::exception {
 			public :
@@ -38,17 +39,18 @@ class Span {
 			public :
 				const char * what() const throw();
 		};
+		class wrongRange : public std::exception {
+			public :
+				const char * what() const throw();
+		};
 	private :
 		unsigned int				*_array;
-		unsigned int				_size;
 		unsigned int				_length;
-		unsigned int				_longestSpan;
-		unsigned int				_shortestSpan;
+		unsigned int				_size;
 
 		unsigned int	_getSize( void ) const;
 		unsigned int	_getLength( void ) const;
-		unsigned int	_getPos( unsigned int to_place ) const;
-		void					_insert(unsigned int pos, unsigned int to_insert);
+		void					_incrementSize( void );
 };
 
 #endif

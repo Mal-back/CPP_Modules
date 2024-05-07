@@ -42,7 +42,7 @@ void	ScalarConverter::convert(const std::string &litteral) {
 		if (litteral.size() - i == 1 && std::isprint(litteral[i]) != 0
 				&& std::isdigit(litteral[i]) == 0) {
 			letter = litteral[i];
-			std::cout << "Char : " << litteral[i] << std::endl;
+			std::cout << "Char : '" << litteral[i] << "'" << std::endl;
 			std::cout << "Int : " << static_cast<int>(letter) << std::endl;
 			std::cout << "Float : " << static_cast<float>(letter) << ".0f" << std::endl;
 			std::cout << "Double : " << static_cast<double>(letter) << ".0" << std::endl;
@@ -68,11 +68,11 @@ void	ScalarConverter::convert(const std::string &litteral) {
 				number = std::atoi(litteral.c_str());
 				std::cout << "Char : ";
 				if (number >= 32 && number <= 127) {
-					std::cout << static_cast<char>(number) << std::endl;
+					std::cout << "'" << static_cast<char>(number) << "'" << std::endl;
 				} else {
 					std::cout << "Impossible" << std::endl;
 				}
-				std::cout << "Int :" << number << std::endl;
+				std::cout << "Int : " << number << std::endl;
 				std::cout << "Float : " << static_cast<float>(number) << ".0f" << std::endl;
 				std::cout << "Double :" << static_cast<double>(number) << ".0" << std::endl;
 				return ;
@@ -94,7 +94,7 @@ void	ScalarConverter::convert(const std::string &litteral) {
 				} else {
 					std::cout << "Char : ";
 					if (static_cast<int>(dec_number) >= 32 && static_cast<int>(dec_number) <= 127) {
-						std::cout << static_cast<char>(dec_number) << std::endl;
+						std::cout << "'" << static_cast<char>(dec_number) << "'" << std::endl;
 					} else {
 						std::cout << "Impossible" << std::endl;
 					}
@@ -119,14 +119,14 @@ void	ScalarConverter::convert(const std::string &litteral) {
 				} else {
 					std::cout << "Char : ";
 					if (static_cast<int>(float_num) >= 32 && static_cast<int>(float_num) <= 127) {
-						std::cout << static_cast<char>(float_num) << std::endl;
+						std::cout << "'" << static_cast<char>(float_num) << "'" << std::endl;
 					} else {
 						std::cout << "Impossible" << std::endl;
 					}
-					std::cout << "Int :" << static_cast<int>(float_num) << std::endl;
+					std::cout << "Int : " << static_cast<int>(float_num) << std::endl;
 				}
 				std::cout << "Float : " << float_num << "f" << std::endl;
-				std::cout << "Double :" << static_cast<double>(float_num) << std::endl;
+				std::cout << "Double : " << static_cast<double>(float_num) << std::endl;
 				return ;
 			} catch (std::out_of_range& e) {
 				std::cout << "Error : Overflow detected" << std::endl;

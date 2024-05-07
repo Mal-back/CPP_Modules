@@ -17,18 +17,18 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = 
+SRC_FILES = main.cpp Span.cpp 
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 
 CXX = c++
 
-NAME =
+NAME = Span
 
 ###########################################################################
 ###### Rules
