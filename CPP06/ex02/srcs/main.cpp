@@ -18,22 +18,21 @@
 #include <ctime>
 #include <iostream>
 #include <new>
-#include <typeinfo>
 
 Base *generate( void ) {
 	Base *ptr = NULL;
 	srand((unsigned int)time(NULL));
 	switch(rand() % 3) {
 		case 0:
-			std::cout << "From identify : Creating a new A object" << std::endl;
+			std::cout << "From generate : Creating a new A object" << std::endl;
 			return (ptr = new(std::nothrow) A);
 			break ;
 		case 1:
-			std::cout << "From identify : Creating a new B object" << std::endl;
+			std::cout << "From generate : Creating a new B object" << std::endl;
 			return (ptr = new(std::nothrow) B);
 			break ;
 		case 2:
-			std::cout << "From identify : Creating a new C object" << std::endl;
+			std::cout << "From generate : Creating a new C object" << std::endl;
 			return (ptr = new(std::nothrow) C);
 			break ;
 		default :
@@ -56,17 +55,17 @@ void	identify(Base& ptr) {
 		ptr = dynamic_cast<A&>(ptr);
 		std::cout << "From identify through ref : object type is A" << std::endl; 
 		return ;
-	} catch (std::bad_cast& e) {}	
+	} catch (std::exception& e) {}	
 	try {
 		ptr = dynamic_cast<B&>(ptr);
 		std::cout << "From identify through ref : object type is B" << std::endl; 
 		return ;
-	} catch (std::bad_cast& e) {}	
+	} catch (std::exception& e) {}	
 	try {
 		ptr = dynamic_cast<C&>(ptr);
 		std::cout << "From identify through ref : object type is C" << std::endl; 
 		return ;
-	} catch (std::bad_cast& e) {}	
+	} catch (std::exception& e) {}	
 }
 
 int main(void) {

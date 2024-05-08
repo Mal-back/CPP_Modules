@@ -12,9 +12,13 @@
 
 #include <ScalarConverter.hpp>
 #include <cctype>
+#include <cerrno>
+#include <cmath>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
-#include <stdexcept>
+#include <limits.h>
+#include <float.h>
 #include <string>
 
 ScalarConverter::ScalarConverter( void ) {
@@ -33,13 +37,11 @@ ScalarConverter&	ScalarConverter::operator=(const ScalarConverter& rhs) {
 
 void	ScalarConverter::convert(const std::string &litteral) {
 		size_t 	i = 0;
-		int		number;
 		char	letter;
-		float		float_num;
-		double dec_number;
+		char 	*endptr;
+		double number;
 
-		while(litteral[i] == ' ') {++i;}
-		if (litteral.size() - i == 1 && std::isprint(litteral[i]) != 0
+		if (litteral.size() - i == 1 && std::isprint(*litteral) != 0
 				&& std::isdigit(litteral[i]) == 0) {
 			letter = litteral[i];
 			std::cout << "Char : '" << litteral[i] << "'" << std::endl;
@@ -61,86 +63,56 @@ void	ScalarConverter::convert(const std::string &litteral) {
 			std::cout << "Float : " << &litteral[i] << std::endl;
 			std::cout << "Double : nan" << std::endl;
 			return ;
-		} if (litteral[i] == '-' || litteral[i] == '+') {++i;}
-		while (std::isdigit(litteral[i]) != 0) {++i;}
-		if (litteral[i] == '\0') {
-			try {
-				number = std::atoi(litteral.c_str());
-				std::cout << "Char : ";
-				if (number >= 32 && number <= 127) {
-					std::cout << "'" << static_cast<char>(number) << "'" << std::endl;
-				} else {
-					std::cout << "Impossible" << std::endl;
-				}
-				std::cout << "Int : " << number << std::endl;
-				std::cout << "Float : " << static_cast<float>(number) << ".0f" << std::endl;
-				std::cout << "Double :" << static_cast<double>(number) << ".0" << std::endl;
-				return ;
-			} catch (std::out_of_range& e) {
-				std::cout << "Error : Overflow detected" << std::endl;
+		}
+		number = std::strtod(litteral.c_str(), &endptr);
+		if (*endptr != '\0') {
+			if (*endptr == 'f' && *(endptr + 1) == '\0') {
+				number = std::strtof(litteral.c_str(), &endptr);
+			} else {
 				std::cout << "Char : Impossible" << std::endl;
 				std::cout << "Int : Impossible" << std::endl;
 				std::cout << "Float : nanf" << std::endl;
 				std::cout << "Double : nan" << std::endl;
 				return ;
 			}
-		} else if (litteral[i] == '.') {++i;}
-		while (std::isdigit(litteral[i]) != 0) {++i;}
-		if (litteral[i] == '\0') {
-			try {
-				dec_number = std::atof(litteral.c_str());
-				if (static_cast<long>(dec_number) > 2147483647 || static_cast<long>(dec_number) < -2147483648) {
-					std::cout << "Char : Impossible" << std::endl << "Int : Impossible" << std::endl;
-				} else {
-					std::cout << "Char : ";
-					if (static_cast<int>(dec_number) >= 32 && static_cast<int>(dec_number) <= 127) {
-						std::cout << "'" << static_cast<char>(dec_number) << "'" << std::endl;
-					} else {
-						std::cout << "Impossible" << std::endl;
-					}
-					std::cout << "Int :" << static_cast<int>(dec_number) << std::endl;
-				}
-				std::cout << "Float : " << static_cast<float>(dec_number) << "f" << std::endl;
-				std::cout << "Double :" << dec_number << std::endl;
-				return ;
-			} catch (std::out_of_range& e) {
-				std::cout << "Error : Overflow detected" << std::endl;
-				std::cout << "Char : Impossible" << std::endl;
-				std::cout << "Int : Impossible" << std::endl;
-				std::cout << "Float : nanf" << std::endl;
-				std::cout << "Double : nan" << std::endl;
-				return ;
-			}
-		} else if (litteral[i] == 'f' && litteral[i + 1] == '\0') {
-			try {
-				float_num = std::atof(litteral.c_str());
-				if (static_cast<long>(float_num) > 2147483647 || static_cast<long>(float_num) < -2147483648) {
-					std::cout << "Char : Impossible" << std::endl << "Int : Impossible" << std::endl;
-				} else {
-					std::cout << "Char : ";
-					if (static_cast<int>(float_num) >= 32 && static_cast<int>(float_num) <= 127) {
-						std::cout << "'" << static_cast<char>(float_num) << "'" << std::endl;
-					} else {
-						std::cout << "Impossible" << std::endl;
-					}
-					std::cout << "Int : " << static_cast<int>(float_num) << std::endl;
-				}
-				std::cout << "Float : " << float_num << "f" << std::endl;
-				std::cout << "Double : " << static_cast<double>(float_num) << std::endl;
-				return ;
-			} catch (std::out_of_range& e) {
-				std::cout << "Error : Overflow detected" << std::endl;
-				std::cout << "Char : Impossible" << std::endl;
-				std::cout << "Int : Impossible" << std::endl;
-				std::cout << "Float : nanf" << std::endl;
-				std::cout << "Double : nan" << std::endl;
-				return ;
-			}
-		} else {
+		}
+		if (errno == ERANGE) {
 			std::cout << "Char : Impossible" << std::endl;
 			std::cout << "Int : Impossible" << std::endl;
+		}
+		for 
 			std::cout << "Float : nanf" << std::endl;
 			std::cout << "Double : nan" << std::endl;
+			return ;
 		}
+		if (number >= 32 && number < 127) {
+			std::cout << "Char : '" << static_cast<char>(number) << "'" << std::endl;
+		} else {
+			std::cout << "Char : Non Displayable" << std::endl;
+		}
+		if (number > INT_MAX || number < INT_MIN) {
+		std::cout << "Int : Impossible" << std::endl;
+		} else {
+			std::cout << "Int : " << static_cast<int>(number) << std::endl;
+		}
+		if (number > FLT_MAX) {
+			std::cout << "Float : inff" << std::endl;
+		} else if (number < FLT_MIN)
+			std::cout << "Float : -inff" << std::endl;
+		else {
+			std::cout << "Float : ";
+			if (number == static_cast<int>(number)) {
+				std::cout << std::fixed << std::setprecision(1) << number; 
+			} else {
+				std::cout << static_cast<float>(number);
+			} std::cout << "f" << std::endl;
+		}
+		std::cout << "Double : ";
+		if (number == static_cast<int>(number)) {
+			std::cout << std::fixed << std::setprecision(1) << number <<std::endl; 
+		} else {
+			std::cout << number << std::endl;
+		}
+
 		return ;
 }

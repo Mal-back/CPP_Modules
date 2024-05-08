@@ -16,15 +16,15 @@
 #include <Array.tpp>
 
 int main( void ) {
-	Array<int> int_arr(12);
+	const Array<int> int_arr(12);
 	std::cout << "Normal behavior and deep copies with int arrays :" << std::endl;
 	if (int_arr.getArrayIntegrity() == false) {return (1);}
 	for (unsigned int i = 0; i < int_arr.size(); ++i) {
 		std::cout << int_arr[i] << std::endl;
 	}
-	for (unsigned int i = 0; i < int_arr.size(); ++i) {
-		int_arr[i] = i;
-	}
+	// for (unsigned int i = 0; i < int_arr.size(); ++i) {
+	// 	int_arr[i] = i;
+	// }
 	for (unsigned int i = 0; i < int_arr.size(); ++i) {
 		std::cout << int_arr[i] << std::endl;
 	}

@@ -69,7 +69,14 @@ Array<T>&		Array<T>::operator=(const Array<T>& rhs) {
 }
 
 template< typename T>
-T&		Array<T>::operator[](const unsigned int n) const{
+const T&		Array<T>::operator[](const unsigned int n) const{
+	if (n < 0 || n >= this->size()) {
+		throw outOfBounds();
+	} return (this->_array[n]);
+}
+
+template< typename T>
+T&		Array<T>::operator[](const unsigned int n){
 	if (n < 0 || n >= this->size()) {
 		throw outOfBounds();
 	} return (this->_array[n]);

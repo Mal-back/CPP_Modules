@@ -25,7 +25,8 @@ class Array {
 		~Array<T>( void );
 
 		Array<T>&		operator=(const Array<T>& rhs);
-		T&					operator[](const unsigned int n) const;
+		const T&					operator[](const unsigned int n) const;
+		T&								operator[](const unsigned int n);
 
 		unsigned int	size( void ) const;
 		bool					getArrayIntegrity( void ) const;
