@@ -36,33 +36,47 @@ ScalarConverter&	ScalarConverter::operator=(const ScalarConverter& rhs) {
 }
 
 void	ScalarConverter::convert(const std::string &litteral) {
-		size_t 	i = 0;
 		char	letter;
 		char 	*endptr;
 		double number;
 
-		if (litteral.size() - i == 1 && std::isprint(*litteral) != 0
-				&& std::isdigit(litteral[i]) == 0) {
-			letter = litteral[i];
-			std::cout << "Char : '" << litteral[i] << "'" << std::endl;
+		if (litteral.size()== 1 && std::isprint(litteral[0]) != 0
+				&& std::isdigit(litteral[0]) == 0) {
+			letter = litteral[0];
+			std::cout << "Char : '" << litteral << "'" << std::endl;
 			std::cout << "Int : " << static_cast<int>(letter) << std::endl;
 			std::cout << "Float : " << static_cast<float>(letter) << ".0f" << std::endl;
 			std::cout << "Double : " << static_cast<double>(letter) << ".0" << std::endl;
 			return ;
-		} else if (litteral.compare(i, litteral.size() - i, "inf") == 0
-				|| litteral.compare(i, litteral.size() - i, "-inf") == 0)  {
+		} else if (litteral.compare(0, litteral.size(), "inf") == 0
+				|| litteral.compare(0, litteral.size(), "-inf") == 0)  {
 			std::cout << "Char : Impossible" << std::endl;
 			std::cout << "Int : Impossible" << std::endl;
-			std::cout << "Float : nanf" << std::endl;
-			std::cout << "Double : " << &litteral[i] << std::endl;
+			std::cout << "Float : ";
+			if (litteral.size() == 4) {
+				std::cout << "-";
+			}
+			std::cout << "inff" << std::endl;
+			std::cout << "Double : " << litteral << std::endl;
 			return ;
-		} else if (litteral.compare(i, litteral.size() - i, "inff") == 0
-				|| litteral.compare(i, litteral.size() - i, "-inff") == 0)  {
+		} else if (litteral.compare(0, litteral.size(), "inff") == 0
+				|| litteral.compare(0, litteral.size(), "-inff") == 0)  {
 			std::cout << "Char : Impossible" << std::endl;
 			std::cout << "Int : Impossible" << std::endl;
-			std::cout << "Float : " << &litteral[i] << std::endl;
-			std::cout << "Double : nan" << std::endl;
+			std::cout << "Float : " << litteral << std::endl;
+			std::cout << "Double : ";
+			if (litteral.size() == 5) {
+				std::cout << "-";
+			}
+			std::cout << "inf" << std::endl;
 			return ;
+		} else if (litteral.compare(0, litteral.size(), "nan") == 0
+				|| litteral.compare(0, litteral.size(), "nanf") == 0) {
+				std::cout << "Char : Impossible" << std::endl;
+				std::cout << "Int : Impossible" << std::endl;
+				std::cout << "Float : nanf" << std::endl;
+				std::cout << "Double : nan" << std::endl;
+				return ;
 		}
 		number = std::strtod(litteral.c_str(), &endptr);
 		if (*endptr != '\0') {
@@ -79,10 +93,13 @@ void	ScalarConverter::convert(const std::string &litteral) {
 		if (errno == ERANGE) {
 			std::cout << "Char : Impossible" << std::endl;
 			std::cout << "Int : Impossible" << std::endl;
-		}
-		for 
-			std::cout << "Float : nanf" << std::endl;
-			std::cout << "Double : nan" << std::endl;
+			if (litteral[0] == '-') {
+				std::cout << "Float : -inff" << std::endl;
+				std::cout << "Double : -inf" << std::endl;
+			} else {
+				std::cout << "Float : inff" << std::endl;
+				std::cout << "Double : inf" << std::endl;
+			}
 			return ;
 		}
 		if (number >= 32 && number < 127) {
@@ -113,6 +130,5 @@ void	ScalarConverter::convert(const std::string &litteral) {
 		} else {
 			std::cout << number << std::endl;
 		}
-
 		return ;
 }
