@@ -17,18 +17,18 @@ DEPS = $(OBJ_FILES:.o=.d)
 
 SRC = srcs/
 
-SRC_FILES = main.cpp bitcoinExchange.cpp 
+SRC_FILES = 
 
 BUILD = build/
 OBJ_FILES	= $(addprefix $(BUILD),$(SRC_FILES:%.cpp=%.o))
 
 ###########################################################################
 ###### Compilation arguments
-CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -g3
+CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXX = c++
 
-NAME = btc
+NAME =
 
 ###########################################################################
 ###### Rules

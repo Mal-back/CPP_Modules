@@ -5,31 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 20:24:03 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/05/09 20:24:04 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/05/10 16:22:30 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/05/10 16:22:31 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <bitcoinExchange.hpp>
-#include <fstream>
+#include <RPN.hpp>
 #include <iostream>
 
-int main(int ac, char **av) {
-	std::ifstream infile;
+int	main(int ac, char **av) {
 	if (ac != 2) {
-		std::cout << "Error : no input file" << std::endl;
-		return (0);
-	}
-	infile.open(av[1]);
-	if (infile.fail()) {
-		std::cout << "Error : could not open file" << std::endl;
+		std::cout << "Error : the program should take an expression as argument" << std::endl;
 		return (0);
 	}
 	try {
-		BitcoinExchange	exchanger;
-		exchanger.exchange(infile);
+		RPN rpn(av[1]);
+		std::cout << rpn.evaluate() << std::endl;
 	} catch (std::exception& e) {
-		std::cerr << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
-	return (0);
 }

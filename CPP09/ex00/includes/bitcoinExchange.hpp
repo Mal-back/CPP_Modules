@@ -40,12 +40,16 @@ class BitcoinExchange {
 				const char* what() const throw();
 		};
 
+		void	exchange(std::ifstream& input) const;
+
 	private :
 		BitcoinExchange( const BitcoinExchange& to_copy);
 		BitcoinExchange&	operator=(const BitcoinExchange& rhs);
 
-		std::map<int*, double> _db;
-		void	_parseDate(const char *c_line, int *date) const;
+		std::map<std::string, double> _db;
+
+		std::string	_parseDate(const char *c_line) const;
+		void				_findExchangeRate(const std::pair<std::string, double>& entry) const;
 };
 
 #endif
