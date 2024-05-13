@@ -13,7 +13,6 @@
 #include <exception>
 #include <iostream>
 #include <Array.hpp>
-#include <Array.tpp>
 
 int main( void ) {
 	const Array<int> int_arr(12);

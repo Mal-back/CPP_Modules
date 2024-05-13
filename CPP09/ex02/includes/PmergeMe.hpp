@@ -16,7 +16,13 @@
 
 #include <exception>
 #include <list>
+#include <utility>
 #include <vector>
+
+typedef std::pair<int, int> pairs;
+typedef std::vector<int>::iterator int_it;
+typedef std::vector<pairs>::iterator pairs_it;
+
 class PmergeMe {
 
 	public :
@@ -24,7 +30,11 @@ class PmergeMe {
 		~PmergeMe( void );
 
 		class wrongInput : public std::exception {
+			public : 
+				const char*	what() const throw();
+		};
 
+		class doubleOccurence : public std::exception {
 			public : 
 				const char*	what() const throw();
 		};
@@ -37,12 +47,12 @@ class PmergeMe {
 		PmergeMe(const PmergeMe& to_copy);
 		PmergeMe&		operator=(const PmergeMe& rhs);
 
-		void		_vecMergeSort( std::vector<int>& current );
+		std::vector<int>	_vecMergeSort( std::vector<int>& current);
 
-		std::vector<int>	_intVect;
-		std::list<int>		_intList;	
-		unsigned int			_vectorTime;
-		unsigned int			_listTime;
+		std::vector<int>		_intVect;
+		std::list<int>			_intList;	
+		unsigned int				_vectorTime;
+		unsigned int				_listTime;
 
 };
 

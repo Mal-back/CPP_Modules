@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Iter.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: purmerinos <purmerinos@protonmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 17:22:15 by purmerinos        #+#    #+#             */
-/*   Updated: 2024/04/28 17:22:15 by purmerinos       ###   ########.fr       */
+/*   Created: 2024/05/13 15:23:59 by purmerinos        #+#    #+#             */
+/*   Updated: 2024/05/13 15:24:00 by purmerinos       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITER_HPP
-
-# define ITER_HPP
-
+#include "PmergeMe.hpp"
 #include <iostream>
 
-template < typename T, typename U >
-void	iter(T *array_begin, size_t length, void (*func)(U&)) {
-	for (size_t i = 0; i < length; ++i) {
-		func(array_begin[i]);
-	}	
-	return ;
+int main(int ac, char **av) {
+	try {
+		PmergeMe me;
+		me.vectorSort(av + 1, ac - 1);
+	} catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+	return (0);
 }
-
-#endif
