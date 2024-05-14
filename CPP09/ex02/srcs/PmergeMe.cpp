@@ -72,23 +72,9 @@ void	PmergeMe::vectorSort(char **numbers, int ac) {
 		}
 		this->_intVect.push_back(number);
 	}
-	std::vector<int> res = this->_vecMergeSort(this->_intVect);
-	printVec(res);
+	this->_vecMergeSort(this->_intVect, 1);
+	printVec(this->_intVect);
 	gettimeofday(&te, NULL);
-}
-
-void	swapIf(pairs& toCompare) {
-	if (toCompare.first < toCompare.second) {
-		std::swap(toCompare.first, toCompare.second);
-	}
-}
-
-int	getFirst(pairs& current) {
-	return (current.first);
-}
-
-int	getSecond(pairs& current) {
-	return (current.second);
 }
 
 void	printPairs(std::vector<pairs>& v) {
@@ -107,45 +93,62 @@ int	get_pending_number( std::vector<pairs> to_search, int n) {
 	return (-1);
 }
 
-std::vector<int> PmergeMe::_vecMergeSort( std::vector<int>& current) {
-	std::vector<pairs>	paired_vec;
-	pairs								tmp;
-	int									last_one = -1;
-	std::vector<int>		pend;
-	std::cout << "Entry :";
+inline bool PmergeMe::_checkReminder(std::vector<int>& current, size_t itSize) const {
+	if (current.size() % (itSize * 2) >= itSize) {
+		return (true);
+	} return (false);
+}
+
+void PmergeMe::_permutePairs(std::vector<int>& current, size_t itSize) {
+	for (int_it it = current.begin(); it + itSize < current.end(); it += itSize * 2) {
+		if (*it < *(it + itSize)) {
+			int tmp = *it;
+			*it = *(it + itSize);
+			*(it + itSize) = tmp;
+		}
+	}
+	return ;
+}
+
+void	PmergeMe::_insert(std::vector<int>& current, const int_it& begin,
+		const int_it& end, const int_it& where) {
+	std::vector<int> tmp(begin, end);
+	printVec(tmp);
+	current.erase(begin, end);
+	current.insert(where, tmp.begin(), tmp.end());
+}
+
+void PmergeMe::_insertReminder(std::vector<int>& current, size_t itSize) {
+	for (int_it it = current.begin(); it + itSize < current.end(); it += itSize) {
+		if (*(current.end() - itSize) < *it) {
+			_insert(current, current.end() - itSize, current.end(), it);
+		}
+	}
+	return ;
+}
+
+void	_vecInsert( std::vector<int>& current, size_t itSize) {
+	int jacob_num = 1, old_jacob = 1;
+}
+
+void	PmergeMe::_getNextJacobsthal(int &actual, int &prev) {
+	const int old_prev = prev;
+	prev = actual;
+	actual = prev + (2 * old_prev);
+}
+
+void PmergeMe::_vecMergeSort( std::vector<int>& current, size_t itSize) {
+	std::cout << itSize << std::endl;
+	if (itSize * 2 > current.size()) {
+		return;
+	}
+	this->_permutePairs(current, itSize);
 	printVec(current);
-	if (current.size() < 2) {
-		return current;
+	_vecMergeSort(current, itSize * 2);
+	if (this->_checkReminder(current, itSize) == true) {
+		this->_insertReminder(current, itSize);
 	}
-	for (int_it it = current.begin(); current.size() % 2 == 0 ?
-			it != current.end() : it != current.end() - 1; ++it) {
-		tmp.first = *it;
-		tmp.second = *(++it);
-		paired_vec.push_back(tmp);	
-	}
-	std::cout << "unordered pairs :";
-	printPairs(paired_vec);
-	if (current.size() % 2 == 1) {
-		last_one = *(current.end() - 1);
-	}
-	std::for_each(paired_vec.begin(), paired_vec.end(), swapIf);
-	std::cout << "ordered pairs :";
-	printPairs(paired_vec);
-	current.clear();
-	current.resize(paired_vec.size());
-	pend.resize(paired_vec.size());
-	std::transform(paired_vec.begin(), paired_vec.end(), current.begin(), getFirst);
-	current = _vecMergeSort(current);
-	std::vector<int> to_return;
-	for (int_it it = current.begin(); it != current.end(); ++it) {
-		to_return.push_back(get_pending_number(paired_vec, *it));	
-	}
-	if (last_one != -1) {
-		to_return.push_back(last_one);
-	}
-	for (int_it it = current.begin(); it != current.end(); ++it) {
-		to_return.push_back(*it);	
-	}
-	printVec(to_return);
-	return (to_return);
+	printVec(current);
+	return;
+
 }

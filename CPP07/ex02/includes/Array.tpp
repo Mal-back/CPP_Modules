@@ -30,6 +30,9 @@ Array<T>::Array( unsigned int n ) : _size(n) {
 		this->_array = NULL;
 		return ;
 	}
+	for (size_t i = 0; i < this->_size; ++i) {
+		this->_array[i] = T();
+	}
 }
 
 template<typename T>

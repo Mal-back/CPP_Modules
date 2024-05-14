@@ -24,20 +24,20 @@ int main( void ) {
 	sp.addNumber(17);
 	sp.addNumber(9);
 	sp.addNumber(11);
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
+	std::cout << "Shortest Span : " << sp.shortestSpan() << std::endl;
+	std::cout << "Longest Span : " << sp.longestSpan() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << ANNOUNCE << "--------- Range iterator with an array of 10 ---------" << std::endl << std::endl << RESET;
 	Span sp2(10);
 	sp2.addNumber(0, 10);
-	std::cout << sp2.shortestSpan() << std::endl;
-	std::cout << sp2.longestSpan() << std::endl;
+	std::cout << "Shortest Span : " << sp2.shortestSpan() << std::endl;
+	std::cout << "Longest Span : " << sp2.longestSpan() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << ANNOUNCE << "--------- Range iterator with an array of 500k ---------" << std::endl << std::endl << RESET;
 	Span sp3(500000);
 	sp3.addNumber(0, 500000);
-	std::cout << sp3.shortestSpan() << std::endl;
-	std::cout << sp3.longestSpan() << std::endl;
+	std::cout << "Shortest Span : " << sp3.shortestSpan() << std::endl;
+	std::cout << "Longest Span : " << sp3.longestSpan() << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << ANNOUNCE << "--------- Different exceptions ---------" << std::endl << std::endl << RESET;
 	try {
@@ -47,16 +47,16 @@ int main( void ) {
 	}
 	Span sp4(5);
 	try {
-		std::cout << sp4.shortestSpan() << std::endl;
-		std::cout << sp4.longestSpan() << std::endl;
+		std::cout << "Shortest Span : " << sp4.shortestSpan() << std::endl;
+		std::cout << "Longest Span : " << sp4.longestSpan() << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 	Span sp5(0);
 	try {
 		sp5.addNumber(4);
-		std::cout << sp5.shortestSpan() << std::endl;
-		std::cout << sp5.longestSpan() << std::endl;
+		std::cout << "Shortest Span : " << sp5.shortestSpan() << std::endl;
+		std::cout << "Longest Span : " << sp5.longestSpan() << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
@@ -74,8 +74,8 @@ int main( void ) {
 		random.addNumber(rand() / 10000000);
 	}
 	random.printArr();
-	std::cout << std::endl << random.shortestSpan() << std::endl;
-	std::cout << random.longestSpan() << std::endl << std::endl;
+	std::cout << std::endl << "Shortest Span : " << random.shortestSpan() << std::endl;
+	std::cout << "Longest span : " << random.longestSpan() << std::endl << std::endl;
 	std::cout << std::endl << std::endl;
 	std::cout << ANNOUNCE << "--------- Sorted array for verification ---------" << std::endl << std::endl << RESET;
 	random.printArr();

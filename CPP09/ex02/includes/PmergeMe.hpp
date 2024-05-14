@@ -14,6 +14,7 @@
 
 # define PMERGEME_HPP
 
+#include <cstddef>
 #include <exception>
 #include <list>
 #include <utility>
@@ -47,7 +48,14 @@ class PmergeMe {
 		PmergeMe(const PmergeMe& to_copy);
 		PmergeMe&		operator=(const PmergeMe& rhs);
 
-		std::vector<int>	_vecMergeSort( std::vector<int>& current);
+		void				_vecMergeSort( std::vector<int>& current, size_t itSize);
+		void				_vecInsert( std::vector<int>& current, size_t itSize);
+		void				_permutePairs( std::vector<int>& current, size_t itSize);
+		void				_insertReminder( std::vector<int>& current, size_t itSize);
+		void				_insert(std::vector<int>& current, const int_it& begin,
+								const int_it& end, const int_it& where);
+		void				_getNextJacobsthal(int &actual, int &prev);
+		inline bool	_checkReminder(std::vector<int>& current, size_t itSize) const;
 
 		std::vector<int>		_intVect;
 		std::list<int>			_intList;	
