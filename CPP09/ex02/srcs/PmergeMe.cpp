@@ -84,15 +84,6 @@ void	printPairs(std::vector<pairs>& v) {
 	std::cout << std::endl;
 }
 
-int	get_pending_number( std::vector<pairs> to_search, int n) {
-	for (pairs_it it = to_search.begin(); it != to_search.end(); ++it) {
-		if (it->first == n) {
-			return(it->second);
-		}
-	}
-	return (-1);
-}
-
 inline bool PmergeMe::_checkReminder(std::vector<int>& current, size_t itSize) const {
 	if (current.size() % (itSize * 2) >= itSize) {
 		return (true);
@@ -118,23 +109,44 @@ void	PmergeMe::_insert(std::vector<int>& current, const int_it& begin,
 	current.insert(where, tmp.begin(), tmp.end());
 }
 
-void PmergeMe::_insertReminder(std::vector<int>& current, size_t itSize) {
-	for (int_it it = current.begin(); it + itSize < current.end(); it += itSize) {
-		if (*(current.end() - itSize) < *it) {
-			_insert(current, current.end() - itSize, current.end(), it);
-		}
-	}
-	return ;
+void	PmergeMe::_extract(std::vector<int>& src, std::vector<int>& dest,
+			const int_it& where, const int_it& dest_insert, int itSize) {
+	dest.insert(dest_insert, where, where + itSize);
+	src.erase(where, (where + itSize));
 }
 
-void	_vecInsert( std::vector<int>& current, size_t itSize) {
-	int jacob_num = 1, old_jacob = 1;
-}
-
-void	PmergeMe::_getNextJacobsthal(int &actual, int &prev) {
+int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current) {
 	const int old_prev = prev;
 	prev = actual;
 	actual = prev + (2 * old_prev);
+	if (current.size() >= (actual - prev) * itSize) {
+		return (current.begin() + ((actual - prev) * itSize) - itSize);
+	} else return (current.end() - itSize);
+}
+
+void	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
+	std::vector<int> main, pending;
+	int jacob_num = 1, old_jacob = 0;
+	while (current.size() >= itSize * 2) {
+		std::cout << "iter" << std::endl;
+		_extract(current, main, current.begin(), main.end(), itSize);
+		_extract(current, pending, current.begin(), pending.end(), itSize);
+	}
+	_extract(pending, main, pending.begin(), main.begin(), itSize);	
+	while ( pending.size() != 0) {
+		for (int_it it = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending);
+				it >= pending.begin(); it -= itSize) {
+		} 
+	}
+	if (current.size() != 0) {
+
+	}
+	std::cout << "Main Chain : ";
+	printVec(main);
+	std::cout << "Pending : ";
+	printVec(pending);
+	std::cout << "Current : ";
+	printVec(current);
 }
 
 void PmergeMe::_vecMergeSort( std::vector<int>& current, size_t itSize) {
@@ -145,10 +157,7 @@ void PmergeMe::_vecMergeSort( std::vector<int>& current, size_t itSize) {
 	this->_permutePairs(current, itSize);
 	printVec(current);
 	_vecMergeSort(current, itSize * 2);
-	if (this->_checkReminder(current, itSize) == true) {
-		this->_insertReminder(current, itSize);
-	}
-	printVec(current);
+	_vecInsert(current, itSize);
 	return;
 
 }

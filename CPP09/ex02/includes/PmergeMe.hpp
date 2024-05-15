@@ -51,10 +51,12 @@ class PmergeMe {
 		void				_vecMergeSort( std::vector<int>& current, size_t itSize);
 		void				_vecInsert( std::vector<int>& current, size_t itSize);
 		void				_permutePairs( std::vector<int>& current, size_t itSize);
-		void				_insertReminder( std::vector<int>& current, size_t itSize);
+		void				_insertReminder( std::vector<int>& src, std::vector<int>& dest, size_t itSize);
 		void				_insert(std::vector<int>& current, const int_it& begin,
 								const int_it& end, const int_it& where);
-		void				_getNextJacobsthal(int &actual, int &prev);
+		void				_extract(std::vector<int>& src, std::vector<int>& dest,
+								const int_it& where, const int_it& dest_insert, int itSize);
+		int_it			_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current);
 		inline bool	_checkReminder(std::vector<int>& current, size_t itSize) const;
 
 		std::vector<int>		_intVect;
