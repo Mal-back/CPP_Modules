@@ -27,15 +27,16 @@ class noMatchFound : public std::exception {
 };
 
 template < typename T >
-void easyFind(T to_search, int to_find) {
+typename T::iterator easyFind(T& to_search, int to_find) {
 	typename T::iterator match = std::find(to_search.begin(), to_search.end(), to_find);
 
 	if (match != to_search.end()) {
 		std::cout << "Occurence found : " << *match << std::endl;
+		return (match);
 	} else {
 		throw noMatchFound();
 	}
-	return ;
+	return match;
 }
 
 #endif

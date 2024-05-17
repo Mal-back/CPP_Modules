@@ -124,6 +124,18 @@ int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vec
 	} else return (current.end() - itSize);
 }
 
+int_it			_binarySearch(std::vector<int>& to_search, const int_it& range_begin,
+		const int_it& range_end, int to_insert, int itSize) {
+	int_it range_middle = range_begin + ((range_end - range_begin) / 2);
+
+	if (range_middle == range_begin || range_middle == range_end || 
+			(to_insert > *range_middle && to_insert < *(range_middle + itSize))) {
+		return (range_middle + itSize - 1);
+	} else if (to_insert > *(range_middle + itSize)) {
+		return (_binarySearch(to_search, range_middle, range_end, to_insert, itSize));
+	} return (_binarySearch(to_search, range_begin, range_middle, to_insert, itSize));
+}
+
 void	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
 	std::vector<int> main, pending;
 	int jacob_num = 1, old_jacob = 0;

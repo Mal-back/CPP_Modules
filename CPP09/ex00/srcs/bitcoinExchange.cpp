@@ -149,20 +149,11 @@ std::string BitcoinExchange::_parseDate( const char	*c_line) const {
 }
 
 void	BitcoinExchange::_findExchangeRate(const std::pair<std::string, double>& entry) const{
-	std::map<std::string, double>::const_iterator	it = this->_db.find(entry.first);
-
-	if (it != this->_db.end()) {
-		std::cout << entry.first << " => "<< it->second * entry.second << std::endl;
-	} else {
-		std::map<std::string, double>::const_iterator	prev = this->_db.begin();
-		for (it = this->_db.begin()++; it != this->_db.end(); ++it) {
-			if (it->first > entry.first) {
-				std::cout << entry.first << " => "<< prev->second * entry.second << std::endl;
-				break ;
-			}	
-			prev = it;
-		}
+	std::map<std::string, double>::const_iterator	it = this->_db.lower_bound(entry.first);
+	if (it != this->_db.begin() && it->first != entry.first) {
+		--it;
 	}
+	std::cout << entry.first << " => "<< it->second * entry.second << std::endl;
 }
 
 const char*		BitcoinExchange::databaseParsingError::what() const throw() {

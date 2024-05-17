@@ -58,6 +58,8 @@ class PmergeMe {
 								const int_it& where, const int_it& dest_insert, int itSize);
 		int_it			_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current);
 		inline bool	_checkReminder(std::vector<int>& current, size_t itSize) const;
+		int_it			_binarySearch(std::vector<int>& to_search, const int_it& range_begin,
+								const int_it& range_end, int to_insert, int itSize);
 
 		std::vector<int>		_intVect;
 		std::list<int>			_intList;	

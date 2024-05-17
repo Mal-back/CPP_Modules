@@ -38,17 +38,20 @@ int main(void) {
 	my_queue.push_back(144);
 	my_queue.push_back(25);
 	try {
-		easyFind(myvec, 25);
+		std::vector<int>::iterator it = easyFind(myvec, 25);
+		std::cout << "Occurence found at position " << it - myvec.begin() << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 	try {
-		easyFind(my_queue, 25);
+		std::deque<int>::iterator it = easyFind(my_queue, 25);
+		std::cout << "Occurence found at position " << it - my_queue.begin() << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 	try {
-		easyFind(my_list, 25);
+		std::list<int>::iterator it = easyFind(my_list, 25);
+		std::cout << "Occurence found at position " << std::distance(my_list.begin(), it) << std::endl;
 	} catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
