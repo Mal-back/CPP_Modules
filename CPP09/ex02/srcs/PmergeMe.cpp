@@ -119,24 +119,43 @@ int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vec
 	const int old_prev = prev;
 	prev = actual;
 	actual = prev + (2 * old_prev);
-	if (current.size() >= (actual - prev) * itSize) {
+	if (current.size() >= static_cast<size_t>(actual - prev) * itSize) {
 		return (current.begin() + ((actual - prev) * itSize) - itSize);
 	} else return (current.end() - itSize);
 }
 
-int_it			_binarySearch(std::vector<int>& to_search, const int_it& range_begin,
-		const int_it& range_end, int to_insert, int itSize) {
-	int_it range_middle = range_begin + ((range_end - range_begin) / 2);
+int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
+		const int_it& full_range_end, int to_insert, int itSize) {
+	int_it range_end = full_range_end; int_it range_begin = full_range_begin;
+	while (1) {
+		int_it middle = range_begin + ((range_end - range_begin) / 2);
+		if (middle == range_begin) {
+			if (to_insert < *middle) {
+				return (range_begin);
+			} else {
+				return (range_begin + itSize);
+			}
+		} else if (middle == range_end) {
+			if (to_insert < *middle) {
+				return (range_end - 1);
+			} else {
+				return (range_end + itSize);
+			}
+		} else if (to_insert > *middle && to_insert < *(middle + itSize)) {
+			return (middle + itSize);
+		} else if (to_insert < *middle && to_insert > *(middle - itSize)) {
+			return (middle - 1);
+		} else if (to_insert < *middle) {
+			range_begin = middle + 1;
+		} else {
+			range_end = middle - 1;
+		}
+	}
+	return (range_end);
+	}
 
-	if (range_middle == range_begin || range_middle == range_end || 
-			(to_insert > *range_middle && to_insert < *(range_middle + itSize))) {
-		return (range_middle + itSize - 1);
-	} else if (to_insert > *(range_middle + itSize)) {
-		return (_binarySearch(to_search, range_middle, range_end, to_insert, itSize));
-	} return (_binarySearch(to_search, range_begin, range_middle, to_insert, itSize));
-}
-
-void	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
+std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) {
+	std::cout << "Recursion place : " << itSize << std::endl;
 	std::vector<int> main, pending;
 	int jacob_num = 1, old_jacob = 0;
 	while (current.size() >= itSize * 2) {
@@ -144,14 +163,41 @@ void	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
 		_extract(current, main, current.begin(), main.end(), itSize);
 		_extract(current, pending, current.begin(), pending.end(), itSize);
 	}
+	std::cout << "Main Chain : ";
+	printVec(main);
+	std::cout << "Pending : ";
+	printVec(pending);
+	std::cout << "Current : ";
+	printVec(current);
 	_extract(pending, main, pending.begin(), main.begin(), itSize);	
+	std::cout << "Main Chain : ";
+	printVec(main);
+	std::cout << "Pending : ";
+	printVec(pending);
+	std::cout << "Current : ";
+	printVec(current);
+	std::cout << "Pending size : " << pending.size() << std::endl;
 	while ( pending.size() != 0) {
-		for (int_it it = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending);
-				it >= pending.begin(); it -= itSize) {
+		int_it it = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending);
+		int_it	insert_range_end = main.begin() + ((old_jacob * 2) + 1);
+		int_it where_to_insert;
+		where_to_insert = _binarySearch(main.begin(), insert_range_end, *it, itSize);
+		// it -= itSize;
+		insert_range_end = where_to_insert - itSize;
+		for (; it >= pending.begin(); it -= itSize) {
+			std::cout << "One iter" << *it << itSize <<  std::endl;
+			where_to_insert = _binarySearch(main.begin(), insert_range_end, *it, itSize);
+			std::cout << "Seggy" << *where_to_insert << " " << *it <<std::endl;
+			printVec(pending);
+			main.insert(where_to_insert, it, it + itSize);
+			insert_range_end = where_to_insert - itSize;
+			std::cout << "Vector : ";
+			printVec(main);
 		} 
 	}
+	std::cout << "I get there lol" << std::endl;
 	if (current.size() != 0) {
-
+		_extract(current, main, current.begin(), _binarySearch(main.begin(), main.end() - itSize, *(current.begin()), itSize), itSize);
 	}
 	std::cout << "Main Chain : ";
 	printVec(main);
@@ -159,17 +205,20 @@ void	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
 	printVec(pending);
 	std::cout << "Current : ";
 	printVec(current);
+	return main;
 }
 
-void PmergeMe::_vecMergeSort( std::vector<int>& current, size_t itSize) {
+std::vector<int> PmergeMe::_vecMergeSort( std::vector<int> current, size_t itSize) {
 	std::cout << itSize << std::endl;
 	if (itSize * 2 > current.size()) {
-		return;
+		return current;
 	}
 	this->_permutePairs(current, itSize);
 	printVec(current);
-	_vecMergeSort(current, itSize * 2);
-	_vecInsert(current, itSize);
-	return;
+	std::vector<int> sorted = _vecMergeSort(current, itSize * 2);
+	sorted = _vecInsert(current, itSize);
+	std::cout << "Sorted : ";
+	printVec(sorted);
+	return sorted;
 
 }

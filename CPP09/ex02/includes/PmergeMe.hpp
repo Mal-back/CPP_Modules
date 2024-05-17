@@ -48,8 +48,8 @@ class PmergeMe {
 		PmergeMe(const PmergeMe& to_copy);
 		PmergeMe&		operator=(const PmergeMe& rhs);
 
-		void				_vecMergeSort( std::vector<int>& current, size_t itSize);
-		void				_vecInsert( std::vector<int>& current, size_t itSize);
+		std::vector<int>				_vecMergeSort( std::vector<int> current, size_t itSize);
+		std::vector<int>				_vecInsert( std::vector<int> current, size_t itSize);
 		void				_permutePairs( std::vector<int>& current, size_t itSize);
 		void				_insertReminder( std::vector<int>& src, std::vector<int>& dest, size_t itSize);
 		void				_insert(std::vector<int>& current, const int_it& begin,
@@ -58,7 +58,7 @@ class PmergeMe {
 								const int_it& where, const int_it& dest_insert, int itSize);
 		int_it			_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current);
 		inline bool	_checkReminder(std::vector<int>& current, size_t itSize) const;
-		int_it			_binarySearch(std::vector<int>& to_search, const int_it& range_begin,
+		int_it			_binarySearch(const int_it& range_begin,
 								const int_it& range_end, int to_insert, int itSize);
 
 		std::vector<int>		_intVect;
