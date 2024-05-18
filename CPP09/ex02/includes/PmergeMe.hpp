@@ -49,7 +49,7 @@ class PmergeMe {
 		PmergeMe&		operator=(const PmergeMe& rhs);
 
 		std::vector<int>				_vecMergeSort( std::vector<int> current, size_t itSize);
-		std::vector<int>				_vecInsert( std::vector<int> current, size_t itSize);
+		std::vector<int>				_vecInsert( std::vector<int>& current, size_t itSize);
 		void				_permutePairs( std::vector<int>& current, size_t itSize);
 		void				_insertReminder( std::vector<int>& src, std::vector<int>& dest, size_t itSize);
 		void				_insert(std::vector<int>& current, const int_it& begin,

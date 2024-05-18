@@ -94,12 +94,18 @@ inline bool PmergeMe::_checkReminder(std::vector<int>& current, size_t itSize) c
 
 void PmergeMe::_permutePairs(std::vector<int>& current, size_t itSize) {
 	for (int_it it = current.begin(); it + itSize < current.end(); it += itSize * 2) {
+		std::cout << "Comapring " << *it << " and " << *(it + itSize) << std::endl;
 		if (*it < *(it + itSize)) {
-			int tmp = *it;
-			*it = *(it + itSize);
-			*(it + itSize) = tmp;
+			for (size_t i = 0; i < itSize; ++i) {
+				int tmp = *(it + i);
+				std::cout << *(it + i) << " " << *(it + itSize + i) << std::endl;
+				*(it + i) = (*it + itSize + i);
+				*(it + itSize + i) = tmp;
+				std::cout << *(it + i) << " " << *(it + itSize + i) << std::endl;
+			}
 		}
 	}
+	printVec(current);
 	return ;
 }
 
@@ -172,13 +178,21 @@ int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 	return (range_end);
 	}
 
-std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) {
+std::vector<int>	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize) {
 	std::cout << "Recursion place : " << itSize << std::endl;
+	printVec(current);
 	std::vector<int> main, pending;
 	int jacob_num = 1, old_jacob = 1;
-	while (current.size() >= itSize * 2) {
-		_extract(current, main, current.begin(), main.end(), itSize);
-		_extract(current, pending, current.begin(), pending.end(), itSize);
+	for (int_it it = current.begin(); it + (itSize * 2) <= current.end(); it += itSize) {
+		main.insert(main.end(), it, it + itSize);
+		it += itSize;
+		pending.insert(pending.end(), it, it + itSize);
+		if (itSize == 2) {
+			std::cout << "After a current splitting round, main : "; 
+			printVec(main);
+			std::cout << "And pending : ";
+			printVec(pending);
+		}
 	}
 	int_it	already_inserted = pending.begin();
 	main.insert(main.begin(), pending.begin(), pending.begin() + itSize);
@@ -195,7 +209,10 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) 
 		int_it	range_end = main.begin() + ((old_jacob * 2) + itSize);
 		int_it	where_to = _binarySearch(main.begin(), range_end, *to_insert, itSize);
 		std::cout << *to_insert << " " << *where_to << std::endl;
+		size_t offset = where_to - main.begin();
 		main.insert(where_to, to_insert, to_insert + itSize);
+		where_to = main.begin() + offset;
+		std::cout << *where_to << std::endl;
 		std::cout << "Before incr" << *to_insert << std::endl;
 		to_insert -= itSize;
 		std::cout << "After incr " << *to_insert << std::endl;
@@ -206,7 +223,9 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) 
 			std::cout << "In the subloop" << std::endl;
 			where_to = _binarySearch(main.begin(), where_to, *to_insert, itSize);
 			std::cout << *to_insert << " will be inserted here : " << *where_to << std::endl;
+			offset = where_to - main.begin();
 			main.insert(where_to, to_insert, to_insert + itSize);
+			where_to = main.begin() + offset;
 			std::cout << *to_insert << std::endl;
 			to_insert -= itSize;
 			std::cout << *to_insert << std::endl;
@@ -218,8 +237,8 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) 
 		already_inserted += (jacob_num - old_jacob) * itSize; 
 	}
 	std::cout << "I get there lol" << std::endl;
-	if (current.size() != 0) {
-		_extract(current, main, current.begin(), _binarySearch(main.begin(), main.end() - itSize, *(current.begin()), itSize), itSize);
+	if (current.size() % (itSize * 2) != 0) {
+		_extract(current, main, current.end() - itSize, _binarySearch(main.begin(), main.end() - itSize, *(current.end() - itSize), itSize), itSize);
 	}
 	std::cout << "Main Chain : ";
 	printVec(main);
@@ -237,9 +256,11 @@ std::vector<int> PmergeMe::_vecMergeSort( std::vector<int> current, size_t itSiz
 	}
 	this->_permutePairs(current, itSize);
 	printVec(current);
-	std::vector<int> sorted = _vecMergeSort(current, itSize * 2);
-	sorted = _vecInsert(current, itSize);
-	std::cout << "Sorted : ";
+	std::vector<int> ret = _vecMergeSort(current, itSize * 2);
+	std::cout << "Sorted after return: ";
+	printVec(ret);
+	std::vector<int> sorted = _vecInsert(ret, itSize);
+	std::cout << "Sorted before return: ";
 	printVec(sorted);
 	return sorted;
 
