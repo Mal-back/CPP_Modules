@@ -56,7 +56,7 @@ class PmergeMe {
 								const int_it& end, const int_it& where);
 		void				_extract(std::vector<int>& src, std::vector<int>& dest,
 								const int_it& where, const int_it& dest_insert, int itSize);
-		int_it			_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current);
+		int_it			_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current, int_it starting_point);
 		inline bool	_checkReminder(std::vector<int>& current, size_t itSize) const;
 		int_it			_binarySearch(const int_it& range_begin,
 								const int_it& range_end, int to_insert, int itSize);

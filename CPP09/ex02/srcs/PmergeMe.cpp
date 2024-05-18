@@ -13,7 +13,9 @@
 #include <PmergeMe.hpp>
 #include <algorithm>
 #include <bits/types/struct_timeval.h>
+#include <cstddef>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <sys/time.h>
 #include <cerrno>
@@ -115,29 +117,45 @@ void	PmergeMe::_extract(std::vector<int>& src, std::vector<int>& dest,
 	src.erase(where, (where + itSize));
 }
 
-int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current) {
+int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vector<int>& current, int_it starting_point) {
 	const int old_prev = prev;
 	prev = actual;
 	actual = prev + (2 * old_prev);
-	if (current.size() >= static_cast<size_t>(actual - prev) * itSize) {
-		return (current.begin() + ((actual - prev) * itSize) - itSize);
+	std::cout << "Pending size :" << current.size() << std::endl;
+	std::cout << "Condition :" << static_cast<size_t>(actual - prev) * itSize << std::endl;
+	if (actual - prev == 0) {
+		if (current.size() - (starting_point - current.begin()) >= static_cast<size_t>(2 * itSize)) {
+			return starting_point + (2 * itSize);
+		} else {
+			return (current.end() - itSize);
+		}
+	}
+	if (current.size() - ( starting_point - current.begin()) >= static_cast<size_t>(actual - prev) * itSize) {
+		std::cout << "return this" << std::endl;
+		return (starting_point + ((actual - prev) * itSize) - itSize);
 	} else return (current.end() - itSize);
 }
 
 int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 		const int_it& full_range_end, int to_insert, int itSize) {
 	int_it range_end = full_range_end; int_it range_begin = full_range_begin;
-	while (1) {
-		int_it middle = range_begin + ((range_end - range_begin) / 2);
-		if (middle == range_begin) {
+	while (range_begin <= range_end) {
+		std::cout << "cc" << std::endl;
+		int_it middle;
+		int size = 0;
+		for (; range_begin != range_end; range_begin += itSize, ++size) {}
+		range_begin -= size * itSize;
+		middle = range_begin + ((size / 2) * itSize);
+		std::cout << "Middle : " << *middle << std::endl;
+		if (middle == full_range_begin) {
 			if (to_insert < *middle) {
 				return (range_begin);
 			} else {
 				return (range_begin + itSize);
 			}
-		} else if (middle == range_end) {
+		} else if (middle == full_range_end) {
 			if (to_insert < *middle) {
-				return (range_end - 1);
+				return (range_end);
 			} else {
 				return (range_end + itSize);
 			}
@@ -145,10 +163,10 @@ int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 			return (middle + itSize);
 		} else if (to_insert < *middle && to_insert > *(middle - itSize)) {
 			return (middle - 1);
-		} else if (to_insert < *middle) {
-			range_begin = middle + 1;
+		} else if (to_insert > *middle) {
+			range_begin = middle;
 		} else {
-			range_end = middle - 1;
+			range_end = middle;
 		}
 	}
 	return (range_end);
@@ -157,43 +175,47 @@ int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 std::vector<int>	PmergeMe::_vecInsert( std::vector<int> current, size_t itSize) {
 	std::cout << "Recursion place : " << itSize << std::endl;
 	std::vector<int> main, pending;
-	int jacob_num = 1, old_jacob = 0;
+	int jacob_num = 1, old_jacob = 1;
 	while (current.size() >= itSize * 2) {
-		std::cout << "iter" << std::endl;
 		_extract(current, main, current.begin(), main.end(), itSize);
 		_extract(current, pending, current.begin(), pending.end(), itSize);
 	}
+	int_it	already_inserted = pending.begin();
+	main.insert(main.begin(), pending.begin(), pending.begin() + itSize);
+	already_inserted += itSize;
+	std::cout << "After inserting b1" << std::endl;
 	std::cout << "Main Chain : ";
 	printVec(main);
 	std::cout << "Pending : ";
 	printVec(pending);
-	std::cout << "Current : ";
-	printVec(current);
-	_extract(pending, main, pending.begin(), main.begin(), itSize);	
-	std::cout << "Main Chain : ";
-	printVec(main);
-	std::cout << "Pending : ";
-	printVec(pending);
-	std::cout << "Current : ";
-	printVec(current);
-	std::cout << "Pending size : " << pending.size() << std::endl;
-	while ( pending.size() != 0) {
-		int_it it = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending);
-		int_it	insert_range_end = main.begin() + ((old_jacob * 2) + 1);
-		int_it where_to_insert;
-		where_to_insert = _binarySearch(main.begin(), insert_range_end, *it, itSize);
-		// it -= itSize;
-		insert_range_end = where_to_insert - itSize;
-		for (; it >= pending.begin(); it -= itSize) {
-			std::cout << "One iter" << *it << itSize <<  std::endl;
-			where_to_insert = _binarySearch(main.begin(), insert_range_end, *it, itSize);
-			std::cout << "Seggy" << *where_to_insert << " " << *it <<std::endl;
-			printVec(pending);
-			main.insert(where_to_insert, it, it + itSize);
-			insert_range_end = where_to_insert - itSize;
-			std::cout << "Vector : ";
+	while (already_inserted < pending.end() - itSize) {
+		int_it	to_insert = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending, already_inserted);
+		std::cout << "Find want to insert : " << *to_insert << std::endl;
+		printVec(pending);
+		int_it	range_end = main.begin() + ((old_jacob * 2) + itSize);
+		int_it	where_to = _binarySearch(main.begin(), range_end, *to_insert, itSize);
+		std::cout << *to_insert << " " << *where_to << std::endl;
+		main.insert(where_to, to_insert, to_insert + itSize);
+		std::cout << "Before incr" << *to_insert << std::endl;
+		to_insert -= itSize;
+		std::cout << "After incr " << *to_insert << std::endl;
+		// std::cout << "to insert : " << *to_insert << "  pending begin :" << *pending.begin() << std::endl;
+		std::cout << "Main Chain : ";
+		printVec(main);
+		while (to_insert >= already_inserted) {
+			std::cout << "In the subloop" << std::endl;
+			where_to = _binarySearch(main.begin(), where_to, *to_insert, itSize);
+			std::cout << *to_insert << " will be inserted here : " << *where_to << std::endl;
+			main.insert(where_to, to_insert, to_insert + itSize);
+			std::cout << *to_insert << std::endl;
+			to_insert -= itSize;
+			std::cout << *to_insert << std::endl;
+			std::cout << "Main Chain : ";
 			printVec(main);
-		} 
+			std::cout << "Pending : ";
+			printVec(pending);
+		}
+		already_inserted += (jacob_num - old_jacob) * itSize; 
 	}
 	std::cout << "I get there lol" << std::endl;
 	if (current.size() != 0) {
