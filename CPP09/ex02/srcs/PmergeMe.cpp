@@ -96,12 +96,10 @@ void PmergeMe::_permutePairs(std::vector<int>& current, size_t itSize) {
 	for (int_it it = current.begin(); it + itSize < current.end(); it += itSize * 2) {
 		std::cout << "Comapring " << *it << " and " << *(it + itSize) << std::endl;
 		if (*it < *(it + itSize)) {
-			for (size_t i = 0; i < itSize; ++i) {
-				int tmp = *(it + i);
-				std::cout << *(it + i) << " " << *(it + itSize + i) << std::endl;
-				*(it + i) = (*it + itSize + i);
-				*(it + itSize + i) = tmp;
-				std::cout << *(it + i) << " " << *(it + itSize + i) << std::endl;
+			for (int_it perm = it; perm != it + itSize; ++perm) {
+				int tmp = *perm;
+				*perm = *(perm + itSize);
+				*(perm + itSize) = tmp;
 			}
 		}
 	}
@@ -144,6 +142,12 @@ int_it	PmergeMe::_getNextJacobsthal(int &actual, int &prev, int itSize, std::vec
 
 int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 		const int_it& full_range_end, int to_insert, int itSize) {
+	// if (itSize == 1) {
+	// 	std::cout << "Je vais faire seggy" << std::endl;
+	// 	int_it ret = std::lower_bound(full_range_begin, full_range_begin, to_insert) - 1;
+	// 	std::cout << "LB return : " << *ret << std::endl;
+	// 	return (ret);
+	// }
 	int_it range_end = full_range_end; int_it range_begin = full_range_begin;
 	while (range_begin <= range_end) {
 		std::cout << "cc" << std::endl;
@@ -170,6 +174,9 @@ int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 		} else if (to_insert < *middle && to_insert > *(middle - itSize)) {
 			return (middle - 1);
 		} else if (to_insert > *middle) {
+			if (itSize == 1) {
+				range_begin = middle + 1;
+			} else 
 			range_begin = middle;
 		} else {
 			range_end = middle;
