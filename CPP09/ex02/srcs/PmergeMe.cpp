@@ -172,7 +172,7 @@ int_it			PmergeMe::_binarySearch(const int_it& full_range_begin,
 		} else if (to_insert > *middle && to_insert < *(middle + itSize)) {
 			return (middle + itSize);
 		} else if (to_insert < *middle && to_insert > *(middle - itSize)) {
-			return (middle - 1);
+			return (middle);
 		} else if (to_insert > *middle) {
 			if (itSize == 1) {
 				range_begin = middle + 1;
@@ -190,10 +190,11 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize)
 	printVec(current);
 	std::vector<int> main, pending;
 	int jacob_num = 1, old_jacob = 1;
-	for (int_it it = current.begin(); it + (itSize * 2) <= current.end(); it += itSize) {
-		main.insert(main.end(), it, it + itSize);
-		it += itSize;
-		pending.insert(pending.end(), it, it + itSize);
+	int_it inserter;
+	for (inserter = current.begin(); inserter + (itSize * 2) <= current.end(); inserter += itSize) {
+		main.insert(main.end(), inserter, inserter + itSize);
+		inserter += itSize;
+		pending.insert(pending.end(), inserter, inserter + itSize);
 		if (itSize == 2) {
 			std::cout << "After a current splitting round, main : "; 
 			printVec(main);
@@ -209,16 +210,16 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize)
 	printVec(main);
 	std::cout << "Pending : ";
 	printVec(pending);
-	while (already_inserted < pending.end() - itSize) {
+	while (already_inserted <= pending.end() - itSize) {
 		int_it	to_insert = _getNextJacobsthal(jacob_num, old_jacob, itSize, pending, already_inserted);
 		std::cout << "Find want to insert : " << *to_insert << std::endl;
 		printVec(pending);
-		int_it	range_end = main.begin() + ((old_jacob * 2) + itSize);
+		int_it	range_end = main.begin() + (((old_jacob * 2) * itSize) + itSize);
 		int_it	where_to = _binarySearch(main.begin(), range_end, *to_insert, itSize);
 		std::cout << *to_insert << " " << *where_to << std::endl;
-		size_t offset = where_to - main.begin();
+		size_t offset = range_end - main.begin();
 		main.insert(where_to, to_insert, to_insert + itSize);
-		where_to = main.begin() + offset;
+		range_end = main.begin() + offset + itSize;
 		std::cout << *where_to << std::endl;
 		std::cout << "Before incr" << *to_insert << std::endl;
 		to_insert -= itSize;
@@ -228,11 +229,11 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize)
 		printVec(main);
 		while (to_insert >= already_inserted) {
 			std::cout << "In the subloop" << std::endl;
-			where_to = _binarySearch(main.begin(), where_to, *to_insert, itSize);
+			where_to = _binarySearch(main.begin(), where_to + (2 * itSize), *to_insert, itSize);
 			std::cout << *to_insert << " will be inserted here : " << *where_to << std::endl;
-			offset = where_to - main.begin();
+			offset = range_end - main.begin();
 			main.insert(where_to, to_insert, to_insert + itSize);
-			where_to = main.begin() + offset;
+			range_end = main.begin() + offset + itSize;
 			std::cout << *to_insert << std::endl;
 			to_insert -= itSize;
 			std::cout << *to_insert << std::endl;
@@ -244,8 +245,13 @@ std::vector<int>	PmergeMe::_vecInsert( std::vector<int>& current, size_t itSize)
 		already_inserted += (jacob_num - old_jacob) * itSize; 
 	}
 	std::cout << "I get there lol" << std::endl;
-	if (current.size() % (itSize * 2) != 0) {
-		_extract(current, main, current.end() - itSize, _binarySearch(main.begin(), main.end() - itSize, *(current.end() - itSize), itSize), itSize);
+	if (current.end() - inserter >= static_cast<long>(itSize)) {
+		int_it where_to = _binarySearch(main.begin(), main.end() - itSize, *inserter, itSize);
+		main.insert(where_to, inserter, inserter + itSize);
+		inserter += itSize;
+		if (inserter != current.end()) {
+			main.insert(main.end(), inserter, current.end());
+		}
 	}
 	std::cout << "Main Chain : ";
 	printVec(main);
