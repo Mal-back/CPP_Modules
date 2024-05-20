@@ -14,6 +14,9 @@
 #include <algorithm>
 #include <bits/types/struct_timeval.h>
 #include <cstddef>
+#include <ctime>
+#include <iomanip>
+#include <ios>
 #include <iostream>
 #include <iterator>
 #include <string>
@@ -50,22 +53,22 @@ const char*	PmergeMe::doubleOccurence::what() const throw() {
 	return ("Error : Double occurence of a number");
 }
 
-void	printVec(std::vector<int>& v, size_t itSize) {
-	for (int_it it = v.begin(); it != v.end(); ++it) {
-		if ((it - v.begin()) % itSize == 0) {
-			std::cout << " |";
-		}
-		std::cout << *it << " ";
-	}
-	std::cout << std::endl;
-}
+// void	printVec(std::vector<int>& v, size_t itSize) {
+// 	for (int_it it = v.begin(); it != v.end(); ++it) {
+// 		if ((it - v.begin()) % itSize == 0) {
+// 			std::cout << " |";
+// 		}
+// 		std::cout << *it << " ";
+// 	}
+// 	std::cout << std::endl;
+// }
 
 void	PmergeMe::vectorSort(char **numbers, int ac) {
 	long	number;
 	char	*endptr;
-	struct timeval tb, te;
+	clock_t	ts, te;
 
-	gettimeofday(&tb, NULL);
+	ts = clock();
 	for(int i = 0; i < ac; ++i) {
 		number = std::strtol(numbers[i], &endptr, 10);
 		if (errno == ERANGE || number < 0 || number > INT_MAX || *endptr != '\0') {
@@ -83,7 +86,8 @@ void	PmergeMe::vectorSort(char **numbers, int ac) {
 	} else {
 		std::cout << "Oh oh" << std::endl;
 	}
-	gettimeofday(&te, NULL);
+	te = clock() - ts;
+	std::cout << "took " << std::fixed << std::setprecision(5) << (static_cast<double>(te) / static_cast<float>(CLOCKS_PER_SEC)) << std::endl;
 }
 
 void PmergeMe::_permutePairs(std::vector<int>& current, size_t itSize) {
@@ -207,7 +211,7 @@ std::vector<int> PmergeMe::_vecMergeSort( std::vector<int> current, size_t itSiz
 		return current;
 	}
 	this->_permutePairs(current, itSize);
-	printVec(current, itSize);
+	// printVec(current, itSize);
 	std::vector<int> ret = _vecMergeSort(current, itSize * 2);
 	std::vector<int> sorted = _vecInsert(ret, itSize);
 	return sorted;
